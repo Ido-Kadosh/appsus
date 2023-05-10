@@ -1,6 +1,8 @@
 const { useEffect, useState, Fragment } = React
-const { Outlet, Link, useSearchParams } = ReactRouterDOM
+const { Outlet, Link, useSearchParams, useNavigate } = ReactRouterDOM
 
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { MailFilter } from '../cmps/mail-filter.jsx'
 import { MailList } from '../cmps/mail-list.jsx'
 import { mailService } from '../services/mail.service.js'
@@ -9,6 +11,7 @@ export function MailIndex() {
 	const [mails, setMails] = useState([])
 	const [filter, setFilter] = useState(mailService.getDefaultFilter())
 	const [unreadMailCount, setUnreadMailCount] = useState(0)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		loadMails()
@@ -43,7 +46,7 @@ export function MailIndex() {
 	function onRemoveMail(mailId) {
 		mailService.remove(mailId).then(() => {
 			setMails(mails.filter(mail => mail.id !== mailId))
-			// showSuccessMsg(`Car (${mailId}) removed!`)
+			showSuccessMsg(`Email removed!`)
 		})
 	}
 
@@ -57,7 +60,7 @@ export function MailIndex() {
 				<Link to="/mail/compose">Compose</Link>
 				<MailList mails={mails} onRemoveMail={onRemoveMail} onSetMailReadStatus={onSetMailReadStatus} />
 			</main>
-			<Outlet />
+			<Outlet context={loadMails} />
 		</Fragment>
 	)
 }

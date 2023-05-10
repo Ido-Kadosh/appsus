@@ -21,9 +21,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail }) {
 	}
 	function getDateText(ms) {
 		const timeStamp = new Date(ms)
-		let monthName = utilService.getMonthShortName(timeStamp.getMonth())
-		monthName += ' ' + timeStamp.getDate()
-		return monthName
+		return utilService.formatMailDate(timeStamp)
 	}
 
 	function onSetStarred(ev) {

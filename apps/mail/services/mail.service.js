@@ -20,12 +20,14 @@ export const mailService = {
 	save,
 	getEmptyMail,
 	getDefaultFilter,
+	getLoggedUser,
 }
 
 //status: '', txt: '', isRead: null, isStarred: null, labels: []
 
 function query(filterBy = {}) {
 	return storageService.query(MAIL_KEY).then(mails => {
+		mails.sort((mail1, mail2) => mail2.sentAt - mail1.sentAt)
 		if (filterBy.txt) {
 			const regExp = new RegExp(filterBy.txt, 'i')
 			mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
@@ -54,12 +56,25 @@ function save(mail) {
 	}
 }
 
-function getEmptyMail(subject = '', body = '', sentAt = '', from = '', to = '', isRead, isStarred, removedAt = null) {
+function getEmptyMail(
+	subject = '',
+	body = '',
+	sentAt = '',
+	from = '',
+	to = '',
+	isRead = false,
+	isStarred = false,
+	removedAt = null
+) {
 	return { id: '', subject, body, sentAt, from, to, isRead, isStarred, removedAt }
 }
 
 function getDefaultFilter() {
 	return { status: '', txt: '', isRead: null, isStarred: null, labels: [] }
+}
+
+function getLoggedUser() {
+	return loggedInUser
 }
 
 function _createMail(subject, body, sentAt, from, to, isRead, isStarred, removedAt = null) {

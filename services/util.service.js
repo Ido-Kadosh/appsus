@@ -12,6 +12,8 @@ export const utilService = {
 	getMonthShortName,
 	debounce,
 	debouncePromise,
+	validateMail,
+	formatMailDate,
 }
 
 function makeId(length = 6) {
@@ -110,6 +112,20 @@ function getMonthName(date) {
 	return monthNames[date.getMonth()]
 }
 
+function formatMailDate(timeStamp) {
+	const date = new Date(timeStamp)
+	const year = date.getFullYear()
+	const today = new Date().getFullYear()
+	if (today > year) {
+		const yy = date.getFullYear().toString().slice(2)
+		let mm = padNum(date.getMonth() + 1) // months start at 0!
+		let dd = padNum(date.getDate())
+
+		return dd + '/' + mm + '/' + yy
+	}
+	return getMonthShortName(date.getMonth()) + ' ' + date.getDate()
+}
+
 /* receives a month number (0-11) and returns short month name*/
 function getMonthShortName(monthNum) {
 	const date = new Date()
@@ -145,4 +161,8 @@ function debouncePromise(func, timeout = 500) {
 			timer = setTimeout(() => resolve(func(...args)), timeout)
 		})
 	}
+}
+
+function validateMail(mail) {
+	return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
 }
