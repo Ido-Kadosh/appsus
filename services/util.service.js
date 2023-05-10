@@ -6,6 +6,7 @@ export const utilService = {
 	padNum,
 	getDayName,
 	getMonthName,
+	saveToStorage,
 	loadFromStorage,
 	saveToStorage,
 	getMonthShortName,
