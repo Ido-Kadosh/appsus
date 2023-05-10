@@ -13,7 +13,8 @@ export const noteService = {
     get,
     remove,
     save,
-    getEmptyNote
+    getEmptyNote,
+    getDefaultFilter
 }
 
 function query(filterBy = {}) {
@@ -70,11 +71,11 @@ function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createNote('Fullstack Me Baby!','hiiii','NoteTxt', false, Date.now()))
-        notes.push(_createNote('Coding power', 'hello','NoteTxt', false, Date.now()))
-        notes.push(_createNote('Fullstack Me Baby!', 'google','NoteTxt', false, Date.now()))
-        notes.push(_createNote('Driving license','gggg','NoteTxt', true, Date.now()))
-        notes.push(_createNote('Get my stuff together','coding academy is the best','NoteTxt', true, Date.now()))
+        notes.push(_createNote('Fullstack Me Baby!', 'hiiii', 'NoteTxt', false, Date.now()))
+        notes.push(_createNote('Coding power', 'hello', 'NoteTxt', false, Date.now()))
+        notes.push(_createNote('Fullstack Me Baby!', 'google', 'NoteTxt', false, Date.now()))
+        notes.push(_createNote('Driving license', 'gggg', 'NoteTxt', true, Date.now()))
+        notes.push(_createNote('Get my stuff together', 'coding academy is the best', 'NoteTxt', true, Date.now()))
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
@@ -83,4 +84,8 @@ function _createNote(type = '', isPinned = '', createdAt = Date.now()) {
     const note = getEmptyNote(type, isPinned, createdAt)
     note.id = utilService.makeId()
     return note
+}
+
+function getDefaultFilter() {
+    return { title: '', type: '' }
 }
