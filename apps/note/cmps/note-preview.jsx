@@ -5,11 +5,13 @@ import { utilService } from "../../../services/util.service.js";
 
 export function NotePreview({ note }) {
 
-    const { info } = note
-    console.log(info)
+    const { info : {txt , title} } = note
     return (
         <article className="note-preview">
-            <textarea defaultValue={info.txt} />
+            <div>
+                <div>{title}</div>
+                <div>{txt}</div>
+            </div>
         </article>
     )
 }

@@ -8,7 +8,7 @@ export function NoteList({ notes , onRemoveNote }) {
 
 
     return (
-        <ul className="note-list">
+        <ul className="note-list clean-list">
             {notes.map(note =>
                 <li key={note.id}>
                     <NotePreview note={note} />
