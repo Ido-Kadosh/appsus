@@ -1,12 +1,13 @@
 /* Setup */
 
 @import './setup/variables.css';
-/* @import './setup/fonts.css'; */
+@import './setup/fonts.css';
 
 /* Basics */
 
 @import './basics/base.css';
 @import './basics/helpers.css';
+@import './basics/icons.css';
 /* @import './basics/layout.css'; */
 
 /* Views */
@@ -21,4 +22,6 @@
 @import './cmps/user-msg.css';
 @import './cmps/app-header.css';
 
-/* @import './apps/mail/cmps/mail-list.css'; */
+/* Mail Cmps */
+@import './apps/mail/cmps/mail-list.css';
+@import './apps/mail/cmps/mail-preview.css';
