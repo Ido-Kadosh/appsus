@@ -4,7 +4,7 @@ const { useState, useRef , useEffect } = React
 import { noteService } from "../services/note.service.js"
 import { showSuccessMsg } from "../../../services/event-bus.service.js"
 
-export function AddNote() {
+export function AddNote({saveNote}) {
 
     const [newNote, setNoteToEdit] = useState(noteService.getEmptyNote())
 
@@ -27,10 +27,7 @@ export function AddNote() {
 
     function onSaveNote(ev) {
         ev.preventDefault()
-        noteService.save(newNote)
-            .then(() => {
-                showSuccessMsg('Note saved')
-            })
+        saveNote(newNote)
     }
 
 
@@ -45,7 +42,7 @@ export function AddNote() {
                     type="text" name="title" id="title" placeholder="Title" />
 
 
-                <label htmlFor="txt">Full Name:</label>
+                {/* <label htmlFor="txt">Full Name:</label> */}
                 <input onChange={handleChange} value={txt}
                     type="text" name="txt" id="txt" placeholder="Enter Text..." />
 

@@ -2,7 +2,7 @@
 	user-select: none;
 	position: relative;
 	cursor: pointer;
-	font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' -25, 'opsz' 20;
+	font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 200, 'opsz' 40;
 }
 
 .material-symbols-outlined.starred {
@@ -26,4 +26,9 @@
 
 .material-symbols-outlined:hover::after {
 	opacity: 1;
+}
+
+.material-symbols-outlined.pinned {
+	font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' -25, 'opsz' 20;
+	color: rgb(52, 52, 48);
 }
