@@ -19,6 +19,7 @@ export function MailIndex() {
 
 	function setMailReadStatus(mailId, isRead) {
 		mailService.get(mailId).then(mail => {
+			if (mail.isRead === isRead) return // no need to save twice
 			const newMail = { ...mail, isRead }
 			mailService.save(newMail)
 		})

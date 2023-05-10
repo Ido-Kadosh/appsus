@@ -39,7 +39,6 @@ function remove(mailId) {
 }
 
 function save(mail) {
-	console.log('mail:', mail)
 	if (mail.id) {
 		return storageService.put(MAIL_KEY, mail)
 	} else {
@@ -47,16 +46,16 @@ function save(mail) {
 	}
 }
 
-function getEmptyMail(subject = '', body = '', sentAt = '', from = '', to = '', isRead, removedAt = null) {
-	return { id: '', subject, body, sentAt, from, to, isRead, removedAt }
+function getEmptyMail(subject = '', body = '', sentAt = '', from = '', to = '', isRead, isStarred, removedAt = null) {
+	return { id: '', subject, body, sentAt, from, to, isRead, isStarred, removedAt }
 }
 
 function getDefaultFilter() {
 	return { status: '', txt: '', isShowRead: null, isShowStarred: null, labels: [] }
 }
 
-function _createMail(subject, body, sentAt, from, to, isRead, removedAt = null) {
-	const mail = getEmptyMail(subject, body, sentAt, from, to, isRead, removedAt)
+function _createMail(subject, body, sentAt, from, to, isRead, isStarred, removedAt = null) {
+	const mail = getEmptyMail(subject, body, sentAt, from, to, isRead, isStarred, removedAt)
 	mail.id = utilService.makeId()
 	return mail
 }
@@ -72,6 +71,7 @@ function _createMails() {
 				1551133930594,
 				'superlongemail@superlongcompany.com',
 				'user@appsus.com',
+				false,
 				false
 			)
 		)
@@ -82,6 +82,7 @@ function _createMails() {
 				1551133930594,
 				'momo@momo.com',
 				'user@appsus.com',
+				true,
 				true
 			)
 		)
@@ -92,7 +93,8 @@ function _createMails() {
 				1551133930594,
 				'momo@momo.com',
 				'user@appsus.com',
-				false
+				false,
+				true
 			)
 		)
 		mails.push(
@@ -102,7 +104,8 @@ function _createMails() {
 				1551133930594,
 				'momo@momo.com',
 				'user@appsus.com',
-				true
+				true,
+				false
 			)
 		)
 		utilService.saveToStorage(MAIL_KEY, mails)

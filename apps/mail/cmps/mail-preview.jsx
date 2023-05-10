@@ -1,10 +1,15 @@
-const { useState, Fragment } = React
+const { useState, useEffect, Fragment } = React
 import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../services/mail.service.js'
 
 export function MailPreview({ mail, setMailReadStatus }) {
 	const [isExpanded, setIsExpanded] = useState(false)
 	const [isRead, setIsRead] = useState(mail.isRead)
-	const { from, subject, body, sentAt, to } = mail
+	const [isStarred, setIsStarred] = useState(mail.isStarred)
+
+	useEffect(() => {
+		mailService.save({ ...mail, isStarred })
+	}, [isStarred])
 
 	function handleMailOpening() {
 		setIsExpanded(prev => !prev)
@@ -18,12 +23,22 @@ export function MailPreview({ mail, setMailReadStatus }) {
 		return monthName
 	}
 
-	const isReadClass = isRead ? '' : 'unread'
+	function onSetStarred(ev) {
+		ev.stopPropagation()
+		setIsStarred(prev => !prev)
+	}
 
+	const isReadClass = isRead ? '' : 'unread'
+	const isStarredClass = isStarred ? 'starred' : ''
+
+	const { from, subject, body, sentAt, to } = mail
 	return (
 		<Fragment>
 			<li onClick={handleMailOpening} className={`mail-preview ${isReadClass}`}>
-				<span className="icon material-symbols-outlined">star</span>
+				<span className="material-symbols-outlined">check_box_outline_blank</span>
+				<span onClick={onSetStarred} className={`${isStarredClass} material-symbols-outlined`}>
+					star
+				</span>
 				<span className="mail-from">{from}</span>
 				<span className="mail-subject">{subject}</span>
 				<span className="mail-separator">-</span>

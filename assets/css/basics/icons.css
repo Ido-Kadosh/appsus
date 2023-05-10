@@ -1,5 +1,9 @@
-.icon {
+.material-symbols-outlined {
+	user-select: none;
+	font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' -25, 'opsz' 20;
 }
 
-.icon:hover {
+.material-symbols-outlined.starred {
+	font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' -25, 'opsz' 20;
+	color: gold;
 }
