@@ -2,7 +2,7 @@ const { useState, useEffect, Fragment } = React
 import { utilService } from '../../../services/util.service.js'
 import { mailService } from '../services/mail.service.js'
 
-export function MailPreview({ mail, setMailReadStatus }) {
+export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail }) {
 	const [isExpanded, setIsExpanded] = useState(false)
 	const [isRead, setIsRead] = useState(mail.isRead)
 	const [isStarred, setIsStarred] = useState(mail.isStarred)
@@ -13,8 +13,11 @@ export function MailPreview({ mail, setMailReadStatus }) {
 
 	function handleMailOpening() {
 		setIsExpanded(prev => !prev)
-		setIsRead(true)
-		setMailReadStatus(mail.id, true)
+		// only call these if mail wasn't already read.
+		if (!isRead) {
+			setIsRead(true)
+			onSetMailReadStatus(mail.id, true)
+		}
 	}
 	function getDateText(ms) {
 		const timeStamp = new Date(ms)
@@ -24,19 +27,34 @@ export function MailPreview({ mail, setMailReadStatus }) {
 	}
 
 	function onSetStarred(ev) {
-		ev.stopPropagation()
+		ev.stopPropagation() // prevent mail opening when starred
 		setIsStarred(prev => !prev)
+	}
+
+	function onSetReadStatus(ev, isReadStatus) {
+		ev.stopPropagation()
+		onSetMailReadStatus(mail.id, isReadStatus)
+		setIsRead(isReadStatus)
+	}
+
+	function onDeleteMail(ev) {
+		ev.stopPropagation()
+		onRemoveMail(mail.id)
 	}
 
 	const isReadClass = isRead ? '' : 'unread'
 	const isStarredClass = isStarred ? 'starred' : ''
+	const starTitle = isStarred ? 'Starred' : 'Not starred'
 
 	const { from, subject, body, sentAt, to } = mail
 	return (
 		<Fragment>
 			<li onClick={handleMailOpening} className={`mail-preview ${isReadClass}`}>
-				<span className="material-symbols-outlined">check_box_outline_blank</span>
-				<span onClick={onSetStarred} className={`${isStarredClass} material-symbols-outlined`}>
+				{/* <span className="material-symbols-outlined checkbox">check_box_outline_blank</span> */}
+				<span
+					onClick={onSetStarred}
+					title={starTitle}
+					className={`${isStarredClass} material-symbols-outlined`}>
 					star
 				</span>
 				<span className="mail-from">{from}</span>
@@ -44,6 +62,27 @@ export function MailPreview({ mail, setMailReadStatus }) {
 				<span className="mail-separator">-</span>
 				<span className="mail-body">{body}</span>
 				<span className="mail-date">{getDateText(sentAt)}</span>
+				<div className="icons-container">
+					{!isRead && (
+						<span
+							title="Mark as read"
+							onClick={ev => onSetReadStatus(ev, true)}
+							className="material-symbols-outlined">
+							drafts
+						</span>
+					)}
+					{isRead && (
+						<span
+							title="Mark as unread"
+							onClick={ev => onSetReadStatus(ev, false)}
+							className="material-symbols-outlined">
+							mail
+						</span>
+					)}
+					<span onClick={onDeleteMail} className="material-symbols-outlined">
+						delete
+					</span>
+				</div>
 			</li>
 			{isExpanded && (
 				<li className="full-mail">

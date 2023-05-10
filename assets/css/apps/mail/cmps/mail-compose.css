@@ -1,0 +1,55 @@
+.mail-compose {
+	width: 600px;
+	height: 600px;
+	position: fixed;
+	bottom: 0px;
+	right: 100px;
+}
+
+.mail-compose .form-container {
+	border: 1px solid #dadce0;
+	height: 100%;
+}
+
+.mail-compose form {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.mail-compose form > :is(*, *:focus) {
+	outline: none;
+	padding-block: 0.5em;
+	border: none;
+	border-block-end: 1px solid rgba(100, 121, 143, 0.122);
+}
+
+.mail-compose textarea {
+	flex: 1;
+	resize: none;
+}
+
+.mail-compose header {
+	border: none;
+
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: var(--mail-bg-clr-1);
+	display: flex;
+	justify-content: space-between;
+}
+
+.mail-compose * {
+	padding-inline: 1em;
+}
+
+.mail-compose span.icon {
+	width: 1em;
+	user-select: none;
+	position: relative;
+	cursor: pointer;
+}
+
+.mail-compose .material-symbols-outlined::after {
+	opacity: 0;
+}

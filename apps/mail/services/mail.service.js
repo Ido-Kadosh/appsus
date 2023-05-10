@@ -10,20 +10,28 @@ const loggedInUser = {
 
 _createMails()
 
+const debouncedGet = utilService.debouncePromise(get)
+
 export const mailService = {
 	query,
 	get,
+	debouncedGet,
 	remove,
 	save,
 	getEmptyMail,
 	getDefaultFilter,
 }
 
+//status: '', txt: '', isRead: null, isStarred: null, labels: []
+
 function query(filterBy = {}) {
 	return storageService.query(MAIL_KEY).then(mails => {
 		if (filterBy.txt) {
 			const regExp = new RegExp(filterBy.txt, 'i')
 			mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
+		}
+		if (filterBy.isRead !== null) {
+			mails = mails.filter(mail => mail.isRead === filterBy.isRead)
 		}
 
 		return mails
@@ -51,7 +59,7 @@ function getEmptyMail(subject = '', body = '', sentAt = '', from = '', to = '', 
 }
 
 function getDefaultFilter() {
-	return { status: '', txt: '', isShowRead: null, isShowStarred: null, labels: [] }
+	return { status: '', txt: '', isRead: null, isStarred: null, labels: [] }
 }
 
 function _createMail(subject, body, sentAt, from, to, isRead, isStarred, removedAt = null) {
@@ -100,7 +108,7 @@ function _createMails() {
 		mails.push(
 			_createMail(
 				'Miss you!',
-				'Would love to catch up sometimes, Would love to catch up sometimes, it would be really cool, its gonna be awesome! it would be really cool, its gonna be awesome!, Would love to catch up sometimes, it would be really cool, its gonna be awesome!',
+				utilService.makeLorem(),
 				1551133930594,
 				'momo@momo.com',
 				'user@appsus.com',
