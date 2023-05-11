@@ -1,12 +1,14 @@
 .add-note {
     margin-block-start: 3em;
+    margin-block-end: 10em;
     display: flex;
     flex-direction: column;
-    height: 10em;
+    min-height: 10em;
     border: 1px solid rgb(44, 41, 41);
     border-radius: 5px;
     width: 300px;
     margin-inline: auto;
+    position: relative;
 
 }
 
@@ -18,7 +20,14 @@
 .add-note input {
     border: none;
     background-color: inherit;
-    padding-inline-start: 0.5em;
+    padding-inline-start: 0.3em;
+    font-size: 1em;
+    margin-block-end: 0.3em;
+}
+
+.add-note input[name='title'] {
+    font-size: 1.3em;
+
 }
 
 .add-note .tool-bar {
@@ -34,4 +43,19 @@
     place-self: end;
     background-color: inherit;
     border: none;
+}
+
+.add-note .note-img .img {
+    width: 80%;
+    margin-inline: auto;
+}
+
+.add-note .note-img>* {
+    margin-block-end: 0.8em;
+}
+
+.pin-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }

@@ -1,24 +1,58 @@
 
 const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
 
 import { NotePreview } from "./note-preview.jsx"
-import { utilService } from "../../../services/util.service.js"
-import { ColorBgcNote } from "./color-bgc-note.jsx"
-import { noteService } from "../services/note.service.js"
+
+export function NoteList({ notes, onRemoveNote, duplicateNote, togglePinned }) {
+
+    const [pinnedNotes, setPinnedNotes] = useState([])
+    const [unPinnedNotes, setUnPinnedNotes] = useState([])
+
+    useEffect(() => {
+        console.log(notes)
+        filterPinnedNotes()
+    }, [notes])
 
 
-// import { BookPreview } from "./book-preview.jsx";
+    function filterPinnedNotes() {
+        console.log(notes)
+        const pinnedNotes = notes.filter(note => note.isPinned)
+        const unPinnedNotes = notes.filter(note => !note.isPinned)
 
-export function NoteList({ notes, onRemoveNote, duplicateNote }) {
+        console.log(pinnedNotes)
+        setPinnedNotes(pinnedNotes)
+        setUnPinnedNotes(unPinnedNotes)
+    }
+
+
 
     return (
-        <ul className="note-list clean-list">
-            {notes.map(note =>
-                <li key={note.id}>
-                    <NotePreview note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
-                </li>
-            )}
-        </ul>
+        <React.Fragment>
+
+            {!!pinnedNotes.length && <section className="note-list-pinned">
+                <h1>Pinned</h1>
+                <ul className="note-list clean-list">
+                    {pinnedNotes.map(note =>
+                        <li key={note.id}>
+                            <NotePreview note={note} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
+                                duplicateNote={duplicateNote} setPinnedNotes={setPinnedNotes} />
+                        </li>
+                    )}
+
+                </ul>
+            </section>}
+
+            <section className="note-list-unpinned">
+                {!!pinnedNotes.length && <h1>Other</h1>}
+                <ul className="note-list clean-list">
+                    {unPinnedNotes.map(note =>
+                        <li key={note.id}>
+                            <NotePreview note={note} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
+                                duplicateNote={duplicateNote} setPinnedNotes={setPinnedNotes} />
+                        </li>
+                    )}
+                </ul>
+            </section>
+        </React.Fragment>
     )
 }

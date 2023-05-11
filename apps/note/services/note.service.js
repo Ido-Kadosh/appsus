@@ -20,15 +20,10 @@ export const noteService = {
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            // if (filterBy.title) {
-            //     const regExp = new RegExp(filterBy.title, 'i')
-            //     notes = notes.filter(book => regExp.test(book.title))
-            // }
-
-            // if (filterBy.maxPrice) {
-            //     console.log('hello')
-            //     notes = notes.filter(book => book.listPrice.amount <= filterBy.maxPrice)
-            // }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                notes = notes.filter(note => regExp.test(note.info.title) || regExp.test(note.info.txt))
+            }
             return notes
         })
 }
@@ -66,6 +61,12 @@ function getEmptyNote(txt = '', title = '', type = 'NoteTxt', isPinned = false, 
     }
 }
 
+function getDefaultFilter(searchParams = { get: () => { } }) {
+    return {
+        txt: searchParams.get('txt') || '',
+    }
+}
+
 
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
@@ -84,8 +85,4 @@ function _createNote(type = '', isPinned = '', createdAt = Date.now()) {
     const note = getEmptyNote(type, isPinned, createdAt)
     note.id = utilService.makeId()
     return note
-}
-
-function getDefaultFilter() {
-    return { title: '', type: '' }
 }

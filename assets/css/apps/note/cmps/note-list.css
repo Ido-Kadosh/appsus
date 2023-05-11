@@ -7,11 +7,15 @@
 
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(17em, 1fr));
+    grid-gap: 1.5em;
  }
 
  .note-list li {
-   margin-block: 1.5em;
-   break-inside: avoid-column;
-}
+    margin-block: 1em;
+    /* break-inside: avoid-column; */
+ }
+
+ .note-list-pinned {
+    margin-block-end: 8em;
+ }

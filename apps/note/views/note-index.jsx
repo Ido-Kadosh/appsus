@@ -1,26 +1,37 @@
 
 const { useEffect, useState } = React
-const { Link } = ReactRouterDOM
+const { useSearchParams } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
-import { showSuccessMsg } from "../../../services/event-bus.service.js"
+import { eventBusService, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NoteList } from "../cmps/note-list.jsx"
 import { AddNote } from "../cmps/add-note.jsx"
 import { utilService } from "../../../services/util.service.js"
-
-
+import { NoteFilter } from "../cmps/note-filter.jsx"
 
 export function NoteIndex() {
-
+    const [searchParams, setSearchParams] = useSearchParams()
     const [notes, setNotes] = useState([])
-    // const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter(searchParams))
 
+
+    console.log(filterBy)
+    console.log(searchParams)
     useEffect(() => {
         loadNotes()
+        setSearchParams(filterBy)
+    }, [filterBy])
+
+    useEffect(() => {
+        const unsubscribe = eventBusService.on('input-changed', txt => {
+            setFilterBy(prevFilter => ({ ...prevFilter, txt }))
+        })
+        return unsubscribe
     }, [])
 
     function loadNotes() {
-        noteService.query().then(setNotes)
+        noteService.query(filterBy)
+            .then(setNotes)
     }
 
     function onRemoveNote(noteId) {
@@ -29,12 +40,7 @@ export function NoteIndex() {
             setNotes(updatedNotes)
             showSuccessMsg(`Note removed!`)
         })
-        // send in props
     }
-
-    // function onSetFilter(filterBy) {
-    //     setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
-    // }
 
     function saveNote(newNote) {
         noteService.save(newNote)
@@ -52,12 +58,20 @@ export function NoteIndex() {
             })
     }
 
+    function togglePinned(note) {
+
+        const newNote = { ...note, isPinned: !note.isPinned }
+        noteService.save(newNote)
+            .then(loadNotes)
+    }
+
 
     return (
         <section className="note-index main-layout">
             {/* <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} /> */}
             <AddNote saveNote={saveNote} />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} saveNote={saveNote} />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
+                duplicateNote={duplicateNote} saveNote={saveNote} />
         </section>
 
     )

@@ -42,10 +42,16 @@ export function AddNote({ saveNote }) {
     function handleChange({ target }) {
         const field = target.name
         const value = target.value
-        if (field === 'txt' || field === 'title') {
-            setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, [field]: value } }))
+        // if (field === 'txt' || field === 'title' || field === 'imgUrl' || field === 'videoUrl') {
+        //     setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, [field]: value } }))
+        // } else setNoteToEdit(prevNote => ({ ...prevNote, [field]: value }))
+        if (field === 'title') setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
+        else if (field === 'todos') {
+
+        } else {
+            setNoteToEdit(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
         }
-        setNoteToEdit(prevNote => ({ ...prevNote, [field]: value }))
+
     }
 
     function onSaveNote(ev) {
@@ -72,13 +78,16 @@ export function AddNote({ saveNote }) {
     return (
         <section className='add-note' style={newNote.style}>
 
-            <span onClick={togglePinned} className={`${isPinnedClass} material-symbols-outlined `} >
+            <span onClick={togglePinned} className={`${isPinnedClass} material-symbols-outlined pin-icon `} >
                 push_pin
             </span>
 
             <section className="input-container">
+                <input onChange={handleChange} value={title}
+                    type="text" name="title" id="title" placeholder="Title" />
 
-                <DynamicNoteType noteType={noteType} handleChange={handleChange} title={title} txt={txt} />
+                <DynamicNoteType noteType={noteType} handleChange={handleChange} txt={txt}
+                    imgUrl={newNote.info.imgUrl} videoUrl={newNote.info.videoUrl} />
             </section>
 
 
@@ -110,14 +119,14 @@ export function AddNote({ saveNote }) {
 
 }
 
-function DynamicNoteType({ noteType, handleChange, title, txt, }) {
+function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl }) {
     switch (noteType) {
         case 'NoteTxt':
-            return <NoteTxt handleChange={handleChange} title={title} txt={txt} />
+            return <NoteTxt handleChange={handleChange} txt={txt} />
         case 'NoteImg':
-            return <NoteImg handleChange={handleChange} title={title} />
+            return <NoteImg handleChange={handleChange} imgUrl={imgUrl} />
         case 'NoteVideo':
-            return <NoteVideo handleChange={handleChange} />
+            return <NoteVideo handleChange={handleChange} videoUrl={videoUrl} />
         case 'NoteTodos':
             return <NoteTodos handleChange={handleChange} />
     }
