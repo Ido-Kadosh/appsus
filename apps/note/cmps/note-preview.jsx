@@ -1,4 +1,3 @@
-
 const { useState, useRef, useEffect } = React
 
 import { utilService } from "../../../services/util.service.js";
@@ -13,8 +12,9 @@ export function NotePreview({ note, onRemoveNote, duplicateNote }) {
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const [noteStyle, setNoteStyle] = useState(note.style)
 
-    const elInputTitle = useRef(title)
-    const elInputTxt = useRef(txt)
+	const elInputTitle = useRef(title)
+	const elInputTxt = useRef(txt)
+	console.log('elInputTitle.current:', elInputTitle.current)
 
     useEffect(() => {
     }, [])

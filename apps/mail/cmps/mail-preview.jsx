@@ -11,7 +11,8 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail }) {
 		mailService.save({ ...mail, isStarred })
 	}, [isStarred])
 
-	function handleMailOpening() {
+	function handleMailOpening(ev) {
+		ev.stopPropagation()
 		setIsExpanded(prev => !prev)
 		// only call these if mail wasn't already read.
 		if (!isRead) {
@@ -21,9 +22,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail }) {
 	}
 	function getDateText(ms) {
 		const timeStamp = new Date(ms)
-		let monthName = utilService.getMonthShortName(timeStamp.getMonth())
-		monthName += ' ' + timeStamp.getDate()
-		return monthName
+		return utilService.formatMailDate(timeStamp)
 	}
 
 	function onSetStarred(ev) {

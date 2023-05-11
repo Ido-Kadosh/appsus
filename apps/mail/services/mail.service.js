@@ -20,18 +20,39 @@ export const mailService = {
 	save,
 	getEmptyMail,
 	getDefaultFilter,
+	getLoggedUser,
 }
 
 //status: '', txt: '', isRead: null, isStarred: null, labels: []
 
 function query(filterBy = {}) {
 	return storageService.query(MAIL_KEY).then(mails => {
+		mails.sort((mail1, mail2) => mail2.sentAt - mail1.sentAt)
 		if (filterBy.txt) {
 			const regExp = new RegExp(filterBy.txt, 'i')
 			mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
 		}
 		if (filterBy.isRead !== null) {
 			mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+		}
+		if (filterBy.isStarred !== null) {
+			mails = mails.filter(mail => mail.isStarred === filterBy.isStarred)
+		}
+		if (filterBy.status) {
+			switch (filterBy.status) {
+				case 'inbox':
+					mails = mails.filter(mail => mail.to === loggedInUser.email)
+					break
+				case 'sent':
+					mails = mails.filter(mail => mail.from === loggedInUser.email)
+					break
+				case 'trash':
+					mails = mails.filter(mail => mail.removedAt)
+					break
+				case 'draft':
+					console.log('no drafts ')
+					break
+			}
 		}
 
 		return mails
@@ -54,12 +75,25 @@ function save(mail) {
 	}
 }
 
-function getEmptyMail(subject = '', body = '', sentAt = '', from = '', to = '', isRead, isStarred, removedAt = null) {
+function getEmptyMail(
+	subject = '',
+	body = '',
+	sentAt = '',
+	from = '',
+	to = '',
+	isRead = false,
+	isStarred = false,
+	removedAt = null
+) {
 	return { id: '', subject, body, sentAt, from, to, isRead, isStarred, removedAt }
 }
 
 function getDefaultFilter() {
 	return { status: '', txt: '', isRead: null, isStarred: null, labels: [] }
+}
+
+function getLoggedUser() {
+	return loggedInUser
 }
 
 function _createMail(subject, body, sentAt, from, to, isRead, isStarred, removedAt = null) {

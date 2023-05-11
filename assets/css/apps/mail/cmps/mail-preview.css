@@ -1,5 +1,6 @@
 .mail-preview,
 .full-mail {
+	flex: 1;
 	font-size: 0.875rem;
 	position: relative;
 	display: flex;
@@ -10,7 +11,11 @@
 	color: var(--mail-clr-1);
 	padding-inline: 1em;
 	background-color: var(--mail-bg-clr-1);
-	z-index: 1;
+	/* z-index: 1; */
+}
+
+.mail-preview {
+	cursor: pointer;
 }
 
 .mail-preview.unread,
@@ -30,7 +35,7 @@
 }
 
 .mail-body {
-	flex: 2;
+	flex: 1;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -59,4 +64,8 @@
 
 .mail-preview:hover .mail-date {
 	display: none;
+}
+
+.mail-preview ~ .full-mail p {
+	white-space: pre-wrap;
 }

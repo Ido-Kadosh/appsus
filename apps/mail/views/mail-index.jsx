@@ -1,9 +1,12 @@
 const { useEffect, useState, Fragment } = React
-const { Outlet, Link, useSearchParams } = ReactRouterDOM
+const { Outlet, Link, useSearchParams, useParams, useNavigate } = ReactRouterDOM
 
-import { MailFilter } from '../cmps/mail-filter.jsx'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { MailSearchFilter } from '../cmps/mail-search-filter.jsx'
 import { MailList } from '../cmps/mail-list.jsx'
 import { mailService } from '../services/mail.service.js'
+import { MailSidebarFilter } from '../cmps/mail-sidebar-filter.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState([])
@@ -43,7 +46,7 @@ export function MailIndex() {
 	function onRemoveMail(mailId) {
 		mailService.remove(mailId).then(() => {
 			setMails(mails.filter(mail => mail.id !== mailId))
-			// showSuccessMsg(`Car (${mailId}) removed!`)
+			showSuccessMsg(`Email removed!`)
 		})
 	}
 
@@ -52,12 +55,15 @@ export function MailIndex() {
 	}
 	return (
 		<Fragment>
+			<MailSearchFilter onSetFilter={onSetFilter} filter={filter} />
 			<main className="mail-index">
-				<MailFilter onSetFilter={onSetFilter} filter={filter} />
-				<Link to="/mail/compose">Compose</Link>
+				<section className="mail-sidebar">
+					<Link to="/mail/compose">Compose</Link>
+					<MailSidebarFilter onSetFilter={onSetFilter} filter={filter} />
+				</section>
 				<MailList mails={mails} onRemoveMail={onRemoveMail} onSetMailReadStatus={onSetMailReadStatus} />
 			</main>
-			<Outlet />
+			<Outlet context={loadMails} /> {/* compose mail outlet */}
 		</Fragment>
 	)
 }
