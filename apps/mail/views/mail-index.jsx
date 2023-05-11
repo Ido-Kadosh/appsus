@@ -3,7 +3,6 @@ const { Outlet, Link, useSearchParams, useParams, useNavigate } = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { utilService } from '../../../services/util.service.js'
-import { MailSearchFilter } from '../cmps/mail-search-filter.jsx'
 import { MailList } from '../cmps/mail-list.jsx'
 import { mailService } from '../services/mail.service.js'
 import { MailSidebarFilter } from '../cmps/mail-sidebar-filter.jsx'
@@ -12,6 +11,7 @@ export function MailIndex() {
 	const [mails, setMails] = useState([])
 	const [filter, setFilter] = useState(mailService.getDefaultFilter())
 	const [unreadMailCount, setUnreadMailCount] = useState(0)
+	const [isExpanded, setIsExpanded] = useState(false)
 	const params = useParams()
 
 	if (params.filter) {
@@ -56,24 +56,64 @@ export function MailIndex() {
 	}
 
 	function onRemoveMail(mailId) {
+		mailService.get(mailId).then(mail => {
+			if (mail.removedAt) {
+				onFullDeleteMail(mailId)
+				return
+			}
+			const newMail = { ...mail, removedAt: Date.now() }
+			mailService.save(newMail).then(() => {
+				setMails(mails.filter(mail => mail.id !== mailId))
+			})
+		})
+	}
+
+	function onFullDeleteMail(mailId) {
+		confirm('are you sure you want to delete mail forever?')
 		mailService.remove(mailId).then(() => {
+			// these mails are only shown when we're at the "removed" page, so we can act like we're "deleting" them from that page.
 			setMails(mails.filter(mail => mail.id !== mailId))
 			showSuccessMsg(`Email removed!`)
 		})
 	}
 
+	function restoreMail(mailId) {
+		mailService.get(mailId).then(mail => {
+			const newMail = { ...mail, removedAt: null }
+			mailService.save(newMail).then(() => setMails(mails.filter(mail => mail.id !== mailId)))
+		})
+		showSuccessMsg('Email restored!')
+	}
+
 	function loadMails() {
 		mailService.query(filter).then(setMails).catch(console.log)
 	}
+
+	const isExpandedClass = isExpanded ? 'expanded' : ''
 	return (
 		<Fragment>
-			<MailSearchFilter onSetFilter={onSetFilter} filter={filter} />
 			<main className="mail-index">
-				<section className="mail-sidebar">
-					<Link to="/mail/compose">Compose</Link>
-					<MailSidebarFilter active={params.filter} onSetFilter={onSetFilter} filter={filter} />
+				<section
+					onMouseOut={() => setIsExpanded(false)}
+					onMouseOver={() => setIsExpanded(true)}
+					className={`${isExpandedClass}  mail-sidebar`}>
+					<Link className="compose-icon-container" to="/mail/compose">
+						<span className="compose-icon material-symbols-outlined">edit</span>
+						{isExpanded && <span className="compose-text">Compose</span>}
+					</Link>
+					<MailSidebarFilter
+						isExpanded={isExpanded}
+						active={params.filter}
+						onSetFilter={onSetFilter}
+						filter={filter}
+					/>
 				</section>
-				<MailList mails={mails} onRemoveMail={onRemoveMail} onSetMailReadStatus={onSetMailReadStatus} />
+				<MailList
+					mails={mails}
+					onRemoveMail={onRemoveMail}
+					onSetMailReadStatus={onSetMailReadStatus}
+					restoreMail={restoreMail}
+				/>
 			</main>
 			<Outlet context={loadMails} /> {/* compose mail outlet */}
 		</Fragment>

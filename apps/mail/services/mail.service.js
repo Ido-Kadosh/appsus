@@ -28,14 +28,17 @@ export const mailService = {
 function query(filterBy = {}) {
 	return storageService.query(MAIL_KEY).then(mails => {
 		mails.sort((mail1, mail2) => mail2.sentAt - mail1.sentAt)
+		if (filterBy.status !== 'trash') {
+			mails = mails.filter(mail => !mail.removedAt)
+		}
 		if (filterBy.txt) {
 			const regExp = new RegExp(filterBy.txt, 'i')
 			mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
 		}
-		if (filterBy.isRead !== null) {
+		if (filterBy.isRead !== null && filterBy.isRead !== undefined) {
 			mails = mails.filter(mail => mail.isRead === filterBy.isRead)
 		}
-		if (filterBy.isStarred !== null) {
+		if (filterBy.isStarred !== null && filterBy.isStarred !== undefined) {
 			mails = mails.filter(mail => mail.isStarred === filterBy.isStarred)
 		}
 		if (filterBy.status) {
@@ -54,7 +57,6 @@ function query(filterBy = {}) {
 					break
 			}
 		}
-
 		return mails
 	})
 }

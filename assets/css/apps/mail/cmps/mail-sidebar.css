@@ -4,11 +4,67 @@
 	background-color: var(--mail-bg-clr-2);
 }
 
+.mail-sidebar:hover {
+	padding-inline-end: 1em;
+	/* position: fixed; */
+	height: 100%;
+	z-index: 5;
+}
+
+.mail-sidebar:hover + :is(.mail-list, .no-mails-info) {
+	/* icont-size + 1rem padding each size */
+	/* margin-inline-start: calc(40px + 2rem); */
+}
+
+.mail-sidebar-filter > :hover {
+	cursor: pointer;
+	background-color: rgba(32, 33, 36, 0.059);
+}
+
 .mail-sidebar-filter .active {
 	background-color: #d3e2fe;
 }
 
-.mail-sidebar-filter :hover {
-	cursor: pointer;
-	background-color: rgba(32, 33, 36, 0.059);
+.mail-sidebar-filter .material-symbols-outlined {
+	padding-inline: 1rem;
+}
+
+.mail-sidebar-filter .active > .material-symbols-outlined {
+	font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 200, 'opsz' 48;
+}
+
+.mail-sidebar:hover ::after {
+	opacity: 0;
+}
+
+.mail-sidebar-filter > * {
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding-block: 0.4em;
+}
+
+.mail-sidebar .compose-icon {
+	padding-inline: 0.5em;
+	font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 200, 'opsz' 48;
+}
+
+.mail-sidebar:hover .compose-icon {
+	padding-inline-end: 1em;
+}
+
+.mail-sidebar .compose-icon-container {
+	background-color: #c2e7ff;
+	padding: 0.8em 0.2em;
+	margin: 0.5em;
+	border-radius: 16px;
+}
+
+.mail-sidebar .compose-icon-container:hover {
+	box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+		0 1px 3px 1px rgba(60, 64, 67, 0.15);
+	scale: 1.1;
+}
+
+.compose-icon-container .compose-text {
+	padding-inline-end: 1em;
 }

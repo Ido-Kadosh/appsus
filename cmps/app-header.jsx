@@ -1,6 +1,8 @@
+import { HeaderSearch } from './header-search.jsx'
+
 const { useState, useEffect } = React
 
-const { Link, NavLink } = ReactRouterDOM
+const { Link, NavLink, useLocation } = ReactRouterDOM
 
 export function AppHeader() {
 	const [isVisible, setIsVisible] = useState()
@@ -10,22 +12,24 @@ export function AppHeader() {
 	}
 
 	useEffect(() => {
-		document.addEventListener('click', onCLoseModals)
+		document.addEventListener('click', onCloseModals)
 		return () => {
-			document.removeEventListener('click', onCLoseModals)
+			document.removeEventListener('click', onCloseModals)
 		}
 	})
 
-	function onCLoseModals(ev) {
+	function onCloseModals(ev) {
 		setIsVisible(false)
 	}
 
 	const visibleClass = isVisible ? '' : 'hidden'
+	const currentPath = useLocation().pathname.split('/')[1]
 	return (
 		<header className="app-header">
 			<Link to="/">
 				<img className="app-header-logo" src="assets\img\favicon.svg" />
 			</Link>
+			{['note', 'mail'].includes(currentPath) && <HeaderSearch location={currentPath} />}
 			<span
 				title="Appsus apps"
 				onClick={toggleNavPreview}
@@ -39,10 +43,10 @@ export function AppHeader() {
 						info
 					</NavLink>
 					<NavLink className="mail" title="Mail" to="/mail">
-						Mail
+						mail
 					</NavLink>
 					<NavLink className="note" title="Notes" to="/note">
-						Note
+						note
 					</NavLink>
 				</nav>
 			</span>

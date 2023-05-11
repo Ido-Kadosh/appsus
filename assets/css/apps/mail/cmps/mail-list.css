@@ -3,3 +3,8 @@
 	min-width: 0;
 	flex: 1;
 }
+
+.no-mails-info {
+	text-align: center;
+	flex: 1;
+}
