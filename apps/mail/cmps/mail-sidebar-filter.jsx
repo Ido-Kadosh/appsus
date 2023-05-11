@@ -1,20 +1,18 @@
-const { useState, useEffect, useRef } = React
-const { useNavigate } = ReactRouterDOM
+const { useState, useEffect } = React
+const { useNavigate, useSearchParams } = ReactRouterDOM
 
 import { eventBusService } from '../../../services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js'
 
-export function MailSidebarFilter({ filter, onSetFilter, active, isExpanded }) {
+export function MailSidebarFilter({ filter, active, isExpanded }) {
 	const [filterToEdit, setFilterToEdit] = useState(filter)
-	const navigate = useNavigate()
-	const timeoutIdRef = useRef()
+	const [searchParams, setSearchParams] = useSearchParams()
 
-	useEffect(() => {
-		onSetFilter(filterToEdit)
-	}, [filterToEdit])
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const unsubscribe = eventBusService.on('input-changed', txt => {
+			setSearchParams({ txt })
 			setFilterToEdit(prevFilter => ({ ...prevFilter, txt }))
 		})
 		return unsubscribe
@@ -35,7 +33,6 @@ export function MailSidebarFilter({ filter, onSetFilter, active, isExpanded }) {
 				<span className="material-symbols-outlined">star</span>
 				{isExpanded && <span>Starred</span>}
 			</li>
-			{/* <li onClick={() => setFilter('isStarred', false)}>Unstarred</li> */}
 			<li className={active === 'sent' ? 'active' : ''} onClick={() => setFilter('sent')}>
 				<span className="material-symbols-outlined">send</span>
 				{isExpanded && <span>Sent</span>}
@@ -48,8 +45,6 @@ export function MailSidebarFilter({ filter, onSetFilter, active, isExpanded }) {
 				<span className="material-symbols-outlined">Delete</span>
 				{isExpanded && <span>Deleted</span>}
 			</li>
-			{/* <li onClick={() => setFilter('isRead', true)}>Read</li> */}
-			{/* <li onClick={() => setFilter('isReadd', false)}>Unread</li> */}
 		</ul>
 	)
 }

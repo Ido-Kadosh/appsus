@@ -17,11 +17,25 @@
 	transition: opacity 0.2s;
 	top: -5px;
 	bottom: -5px;
-	left: -8px;
-	right: -8px;
+	left: -5px;
+	right: -5px;
 	border-radius: 50%;
-
 	position: absolute;
+}
+
+.material-symbols-outlined.starred::after,
+.material-symbols-outlined.un-starred::after {
+	top: -2px;
+	bottom: -5px;
+	left: -4px;
+	right: -4px;
+}
+
+.material-symbols-outlined.save-as-note::after {
+	top: -4px;
+	bottom: -3px;
+	left: -3px;
+	right: -5px;
 }
 
 .material-symbols-outlined:hover::after {

@@ -1,14 +1,17 @@
 .app-header {
-	background: lightcyan;
-	border-bottom: 2px solid white;
+	background-color: var(--mail-bg-clr-2);
 	display: flex;
 	justify-content: space-between;
-	padding: 20px 0;
+	height: 5rem;
 }
 
 nav a.active {
 	font-weight: bold;
 	text-decoration: underline;
+}
+
+.app-header a {
+	align-self: center;
 }
 
 .app-header-logo {
@@ -17,12 +20,13 @@ nav a.active {
 }
 
 .app-header-hamburger {
+	align-self: center;
 	padding-inline-end: 20px;
 }
 
 .app-header-hamburger::after {
-	top: -7px;
-	bottom: 6px;
+	top: -8px;
+	bottom: -9px;
 	left: -9px;
 	right: 10px;
 }

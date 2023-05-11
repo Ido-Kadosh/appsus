@@ -2,6 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	background-color: var(--mail-bg-clr-2);
+	color: #202124;
 }
 
 .mail-sidebar:hover {
@@ -22,6 +23,7 @@
 }
 
 .mail-sidebar-filter .active {
+	font-weight: 600;
 	background-color: #d3e2fe;
 }
 

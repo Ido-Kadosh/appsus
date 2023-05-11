@@ -12,6 +12,7 @@ export function MailIndex() {
 	const [filter, setFilter] = useState(mailService.getDefaultFilter())
 	const [unreadMailCount, setUnreadMailCount] = useState(0)
 	const [isExpanded, setIsExpanded] = useState(false)
+	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useParams()
 
 	if (params.filter) {
@@ -28,6 +29,10 @@ export function MailIndex() {
 	useEffect(() => {
 		loadMails()
 	}, [filter])
+
+	useEffect(() => {
+		setFilter(prevFilter => ({ ...prevFilter, txt: searchParams.get('txt') }))
+	}, [searchParams])
 
 	useEffect(() => {
 		mailService.query({ isRead: false }).then(mails => {
@@ -101,12 +106,7 @@ export function MailIndex() {
 						<span className="compose-icon material-symbols-outlined">edit</span>
 						{isExpanded && <span className="compose-text">Compose</span>}
 					</Link>
-					<MailSidebarFilter
-						isExpanded={isExpanded}
-						active={params.filter}
-						onSetFilter={onSetFilter}
-						filter={filter}
-					/>
+					<MailSidebarFilter isExpanded={isExpanded} active={params.filter} filter={filter} />
 				</section>
 				<MailList
 					mails={mails}

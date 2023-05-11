@@ -7,7 +7,6 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 	const [isExpanded, setIsExpanded] = useState(false)
 	const [isRead, setIsRead] = useState(mail.isRead)
 	const [isStarred, setIsStarred] = useState(mail.isStarred)
-	const [isFullScreen, setFullScreen] = useState(false)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -51,8 +50,9 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 		restoreMail(mail.id)
 	}
 
-	function onToggleFullScreen() {
-		setFullScreen(prev => !prev)
+	function onOpenFullScreen(ev) {
+		ev.stopPropagation()
+		navigate(`/mail/details/${mail.id}`)
 	}
 
 	function onSendToNotes(ev) {
@@ -65,9 +65,8 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 	}
 
 	const isReadClass = isRead ? '' : 'unread'
-	const isStarredClass = isStarred ? 'starred' : ''
+	const isStarredClass = isStarred ? 'starred' : 'un-starred'
 	const starTitle = isStarred ? 'Starred' : 'Not starred'
-	const isFullScreenClass = isFullScreen ? 'full-screen' : ''
 
 	return (
 		<Fragment>
@@ -89,7 +88,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 						<span
 							onClick={ev => onSendToNotes(ev)}
 							title="Save as note"
-							className="material-symbols-outlined">
+							className="save-as-note material-symbols-outlined">
 							near_me
 						</span>
 					)}
@@ -102,7 +101,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 						<span
 							title="Mark as read"
 							onClick={ev => onSetReadStatus(ev, true)}
-							className="material-symbols-outlined">
+							className="mark-as-read material-symbols-outlined">
 							drafts
 						</span>
 					)}
@@ -110,29 +109,28 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 						<span
 							title="Mark as unread"
 							onClick={ev => onSetReadStatus(ev, false)}
-							className="material-symbols-outlined">
+							className="mark-as-unread material-symbols-outlined">
 							mail
 						</span>
 					)}
 
-					<span title="Delete" onClick={onDeleteMail} className="material-symbols-outlined">
+					<span title="Delete" onClick={onDeleteMail} className="delete-icon material-symbols-outlined">
 						delete
 					</span>
 				</div>
 			</li>
 			{isExpanded && (
-				<li className={`${isFullScreenClass} full-mail`}>
+				<li className={'full-mail'}>
 					<span>
 						<h2>{from}</h2>
 						<h5>to {to}</h5>
-						<span onClick={onToggleFullScreen} className="material-symbols-outlined">
+						<span onClick={onOpenFullScreen} className="material-symbols-outlined">
 							fullscreen
 						</span>
 						<p>{body}</p>
 					</span>
 				</li>
 			)}
-			{isFullScreen && <div className="close-modal-screen" onClick={() => onToggleFullScreen()}></div>}
 		</Fragment>
 	)
 }

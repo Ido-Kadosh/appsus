@@ -12,7 +12,12 @@ export function HeaderSearch({ location = '', value = '' }) {
 
 	return (
 		<form className="header-search">
-			<input value={searchValue} onChange={handleChange} type="text" placeholder={`Search ${location}`} />
+			<div className="input-container">
+				<span title="search" className="material-symbols-outlined">
+					search
+				</span>
+				<input value={searchValue} onChange={handleChange} type="text" placeholder={`Search ${location}`} />
+			</div>
 		</form>
 	)
 }

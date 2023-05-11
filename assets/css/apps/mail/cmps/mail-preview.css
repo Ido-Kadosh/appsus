@@ -1,9 +1,9 @@
 .mail-preview,
 .full-mail {
 	flex: 1;
-	font-size: 0.875rem;
 	position: relative;
 	display: flex;
+	align-items: center;
 	gap: 1em;
 	border: 1px solid rgba(100, 121, 143, 0.122);
 	padding-block: 0.625em;
@@ -47,7 +47,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	user-select: none;
-	width: 15em;
+	width: 10em;
 }
 
 .mail-date {
