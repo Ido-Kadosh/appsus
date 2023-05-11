@@ -35,6 +35,25 @@ function query(filterBy = {}) {
 		if (filterBy.isRead !== null) {
 			mails = mails.filter(mail => mail.isRead === filterBy.isRead)
 		}
+		if (filterBy.isStarred !== null) {
+			mails = mails.filter(mail => mail.isStarred === filterBy.isStarred)
+		}
+		if (filterBy.status) {
+			switch (filterBy.status) {
+				case 'inbox':
+					mails = mails.filter(mail => mail.to === loggedInUser.email)
+					break
+				case 'sent':
+					mails = mails.filter(mail => mail.from === loggedInUser.email)
+					break
+				case 'trash':
+					mails = mails.filter(mail => mail.removedAt)
+					break
+				case 'draft':
+					console.log('no drafts ')
+					break
+			}
+		}
 
 		return mails
 	})

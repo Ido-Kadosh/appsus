@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function MailFilter({ filter, onSetFilter }) {
+export function MailSearchFilter({ filter, onSetFilter }) {
 	const [filterToEdit, setFilterToEdit] = useState(filter)
 
 	useEffect(() => {
@@ -15,7 +15,7 @@ export function MailFilter({ filter, onSetFilter }) {
 
 	const { txt } = filterToEdit
 	return (
-		<form>
+		<form className="mail-search-filter">
 			<input value={txt} onChange={handleChange} name="txt" id="txt" type="text" placeholder="Search mail" />
 		</form>
 	)

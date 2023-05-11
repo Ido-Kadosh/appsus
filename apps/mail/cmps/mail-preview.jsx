@@ -11,7 +11,8 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail }) {
 		mailService.save({ ...mail, isStarred })
 	}, [isStarred])
 
-	function handleMailOpening() {
+	function handleMailOpening(ev) {
+		ev.stopPropagation()
 		setIsExpanded(prev => !prev)
 		// only call these if mail wasn't already read.
 		if (!isRead) {

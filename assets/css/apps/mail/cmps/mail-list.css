@@ -1,10 +1,1 @@
 /* mail list */
-
-.mail-list {
-	margin: 0;
-	padding: 0;
-}
-
-.mail-list li {
-	cursor: pointer;
-}

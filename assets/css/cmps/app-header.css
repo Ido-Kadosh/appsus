@@ -6,16 +6,57 @@
 	padding: 20px 0;
 }
 
-nav a {
-	margin: 0.5em;
-}
-
-nav a:active {
-	color: purple;
+nav a:hover {
+	scale: 1.2;
 }
 
 nav a.active {
-	color: darkblue;
 	font-weight: bold;
-	text-decoration: overline;
+	text-decoration: underline;
+}
+
+.app-header-logo {
+	display: absolute;
+	padding-inline-start: 20px;
+}
+
+.app-header-hamburger {
+	padding-inline-end: 20px;
+}
+
+.app-header-hamburger::after {
+	top: -7px;
+	bottom: 6px;
+	left: -9px;
+	right: 10px;
+}
+
+.header-apps {
+	z-index: 999;
+	background-color: #fff;
+	border: 1px solid gray;
+	position: absolute;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	right: 50px;
+}
+
+.header-apps > * {
+	margin: 0;
+	padding: 0.4em;
+}
+
+.header-apps.hidden {
+	display: none;
+}
+
+.header-apps .home {
+	color: rgb(51, 68, 185);
+}
+
+.header-apps .mail {
+	color: red;
+}
+.header-apps .note {
+	color: #fabd05;
 }
