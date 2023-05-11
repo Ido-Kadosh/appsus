@@ -5,19 +5,18 @@ import { noteService } from "../services/note.service.js";
 import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { ToolBarNote } from "./tool-bar-note.jsx";
 
-export function NotePreview({ note, onRemoveNote, duplicateNote }) {
+export function NotePreview({ note, onRemoveNote, duplicateNote, setPinnedNotes, togglePinned }) {
 
-    const { id, info: { txt, title } } = note
+    const { id, info: { txt, title, imgUrl, videoUrl }, type } = note
 
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const [noteStyle, setNoteStyle] = useState(note.style)
 
-	const elInputTitle = useRef(title)
-	const elInputTxt = useRef(txt)
+    const elInputTitle = useRef(title)
+    const elInputTxt = useRef(txt)
 
     useEffect(() => {
     }, [])
-
 
 
     function onSetNoteStyle(newStyle) {
@@ -30,21 +29,18 @@ export function NotePreview({ note, onRemoveNote, duplicateNote }) {
     }
 
 
-
-    function togglePinned(ev) {
-        noteService.get(id)
-            .then((note) => {
-                note.isPinned = !note.isPinned
-                return note
-            }).then(noteService.save)
+    function onTogglePinned(ev) {
         ev.stopPropagation()
-        setIsPinned((prev) => !prev)
+        togglePinned(note)
     }
+
 
 
     function onSaveChanges() {
         note.info.title = elInputTitle.current.innerText
-        note.info.txt = elInputTxt.current.innerText
+        if (type === 'NoteTxt') {
+            note.info.txt = elInputTxt.current.innerText || ''
+        }
         noteService.save(note)
             .then(() => {
                 showSuccessMsg('The changes are saved')
@@ -56,7 +52,7 @@ export function NotePreview({ note, onRemoveNote, duplicateNote }) {
 
 
         <article className="note-preview" style={noteStyle}>
-            <span onClick={togglePinned} className={`${isPinnedClass} material-symbols-outlined `} >
+            <span onClick={onTogglePinned} className={`${isPinnedClass} material-symbols-outlined pin-icon `} >
                 push_pin
             </span>
             <div className="content-editable-container" onBlur={onSaveChanges}>
@@ -68,14 +64,20 @@ export function NotePreview({ note, onRemoveNote, duplicateNote }) {
                 >
                     {title}
                 </h1>
-                <p
+                {type === 'NoteTxt' && <p
                     ref={elInputTxt}
                     name="txt"
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                 >
                     {txt}
-                </p>
+                </p>}
+                {type === 'NoteImg' &&
+                    <img src={imgUrl}></img>
+                }
+                {type === 'NoteVideo' &&
+                    <iframe src={videoUrl}></iframe>
+                }
             </div>
             <ToolBarNote onSetNoteStyle={onSetNoteStyle} note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
         </article>

@@ -1,11 +1,9 @@
 
 
-export function NoteTxt({ handleChange, title, txt }) {
+export function NoteTxt({ handleChange, txt }) {
 
     return (
-        <section className="note-txt">
-            <input onChange={handleChange} value={title}
-                type="text" name="title" id="title" placeholder="Title" />
+        <section className="note-txt flex column space-between">
             <input onChange={handleChange} value={txt}
                 type="text" name="txt" id="txt" placeholder="Enter Text..." />
         </section>

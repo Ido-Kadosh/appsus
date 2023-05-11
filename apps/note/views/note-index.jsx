@@ -20,7 +20,8 @@ export function NoteIndex() {
     }, [])
 
     function loadNotes() {
-        noteService.query().then(setNotes)
+        noteService.query()
+            .then(setNotes)
     }
 
     function onRemoveNote(noteId) {
@@ -29,7 +30,6 @@ export function NoteIndex() {
             setNotes(updatedNotes)
             showSuccessMsg(`Note removed!`)
         })
-        // send in props
     }
 
     // function onSetFilter(filterBy) {
@@ -52,12 +52,23 @@ export function NoteIndex() {
             })
     }
 
+    function togglePinned(note) {
+
+        const newNote = { ...note, isPinned: !note.isPinned }
+        noteService.save(newNote)
+            .then(loadNotes)
+        // .then(setPinnedNotes(prevNotes => [...prevNotes, note]))
+        // .then(setIsPinned((prev) => !prev))
+        // setPinnedNotes(prevNotes => [...prevNotes, note])
+    }
+
 
     return (
         <section className="note-index main-layout">
             {/* <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} /> */}
             <AddNote saveNote={saveNote} />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} saveNote={saveNote} />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
+                duplicateNote={duplicateNote} saveNote={saveNote} />
         </section>
 
     )
