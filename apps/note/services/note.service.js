@@ -50,7 +50,7 @@ function save(note) {
     }
 }
 
-function getEmptyNote(txt = '', title = '', type = '', isPinned = false, createdAt = Date.now()) {
+function getEmptyNote(txt = '', title = '', type = 'NoteTxt', isPinned = false, createdAt = Date.now()) {
     return {
         id: '',
         createdAt,

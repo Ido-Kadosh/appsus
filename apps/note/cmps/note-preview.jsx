@@ -14,7 +14,6 @@ export function NotePreview({ note, onRemoveNote, duplicateNote }) {
 
 	const elInputTitle = useRef(title)
 	const elInputTxt = useRef(txt)
-	console.log('elInputTitle.current:', elInputTitle.current)
 
     useEffect(() => {
     }, [])

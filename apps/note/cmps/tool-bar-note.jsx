@@ -35,6 +35,9 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
             <span className="material-symbols-outlined" >
                 image
             </span>
+            <span className="material-symbols-outlined">
+                movie
+            </span>
             <span className="material-symbols-outlined" onClick={(ev) => togglePalette(ev)}>
                 palette
             </span>

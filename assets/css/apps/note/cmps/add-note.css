@@ -2,7 +2,7 @@
     margin-block-start: 3em;
     display: flex;
     flex-direction: column;
-    height: 8em;
+    height: 10em;
     border: 1px solid rgb(44, 41, 41);
     border-radius: 5px;
     width: 300px;
@@ -10,16 +10,28 @@
 
 }
 
-.add-note input {
-    border: none;
+.add-note .input-container {
+    margin-block-start: 1em;
     flex-grow: 1;
 }
 
+.add-note input {
+    border: none;
+    background-color: inherit;
+    padding-inline-start: 0.5em;
+}
+
 .add-note .tool-bar {
-    margin-block-start: 1em;
+    display: flex;
+}
+
+.add-note .tool-bar span:not(:first-child) {
+    margin-inline-start: 0.5em;
 }
 
 .add-note .add-btn {
-    width: 10em;
+    width: 3em;
     place-self: end;
+    background-color: inherit;
+    border: none;
 }
