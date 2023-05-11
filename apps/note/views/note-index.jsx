@@ -27,7 +27,7 @@ export function NoteIndex() {
         noteService.remove(noteId).then(() => {
             const updatedNotes = notes.filter(note => note.id !== noteId)
             setNotes(updatedNotes)
-            showSuccessMsg(`Book removed!`)
+            showSuccessMsg(`Note removed!`)
         })
         // send in props
     }
@@ -45,7 +45,8 @@ export function NoteIndex() {
     }
 
     function duplicateNote(note) {
-        noteService.save(note)
+        const newNote = { ...note, id: null }
+        noteService.save(newNote)
             .then((note) => {
                 setNotes(prevNotes => [...prevNotes, note])
             })
@@ -54,9 +55,7 @@ export function NoteIndex() {
 
     return (
         <section className="note-index main-layout">
-            {/* <BookFilter onSetFilter={onSetFilter} filterBy={filterBy} /> */}
-            {/* <button><Link to="/book/edit">Add Book</Link></button> */}
-            {/* <button><Link to="/book/add-from-google">Add Book From Google</Link></button> */}
+            {/* <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} /> */}
             <AddNote saveNote={saveNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} saveNote={saveNote} />
         </section>

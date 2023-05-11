@@ -1,17 +1,17 @@
  /* note list */
 
-
- .note-list li {
-    margin-block: 1.5em;
-    break-inside: avoid-column;
- }
-
  .note-list {
     /* column-count: 4;
     column-gap: 2em;
     margin-block: 3em; */
 
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
     grid-gap: 20px;
  }
+
+ .note-list li {
+   margin-block: 1.5em;
+   break-inside: avoid-column;
+}

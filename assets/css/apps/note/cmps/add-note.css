@@ -1,0 +1,25 @@
+.add-note {
+    margin-block-start: 3em;
+    display: flex;
+    flex-direction: column;
+    height: 8em;
+    border: 1px solid rgb(44, 41, 41);
+    border-radius: 5px;
+    width: 300px;
+    margin-inline: auto;
+
+}
+
+.add-note input {
+    border: none;
+    flex-grow: 1;
+}
+
+.add-note .tool-bar {
+    margin-block-start: 1em;
+}
+
+.add-note .add-btn {
+    width: 10em;
+    place-self: end;
+}
