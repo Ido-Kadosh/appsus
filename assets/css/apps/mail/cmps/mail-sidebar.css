@@ -1,0 +1,14 @@
+.mail-sidebar {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--mail-bg-clr-2);
+}
+
+.mail-sidebar-filter .active {
+	background-color: #d3e2fe;
+}
+
+.mail-sidebar-filter :hover {
+	cursor: pointer;
+	background-color: rgba(32, 33, 36, 0.059);
+}

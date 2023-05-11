@@ -12,6 +12,18 @@ export function MailIndex() {
 	const [mails, setMails] = useState([])
 	const [filter, setFilter] = useState(mailService.getDefaultFilter())
 	const [unreadMailCount, setUnreadMailCount] = useState(0)
+	const params = useParams()
+
+	if (params.filter) {
+		if (['inbox', 'sent', 'trash', 'draft'].includes(params.filter)) {
+			if (filter.status != params.filter) onSetFilter({ status: params.filter, isStarred: null }) // avoid infinite loop
+		} else if (params.filter === 'starred') {
+			if (!filter.isStarred) onSetFilter({ isStarred: true, status: null }) // avoid infinite loop
+		}
+	} else {
+		// if we navigate back to default inbox after navigating with params, load default inbox without filters.
+		if (filter.status || filter.isStarred) onSetFilter({ isStarred: null, status: null })
+	}
 
 	useEffect(() => {
 		loadMails()
@@ -59,7 +71,7 @@ export function MailIndex() {
 			<main className="mail-index">
 				<section className="mail-sidebar">
 					<Link to="/mail/compose">Compose</Link>
-					<MailSidebarFilter onSetFilter={onSetFilter} filter={filter} />
+					<MailSidebarFilter active={params.filter} onSetFilter={onSetFilter} filter={filter} />
 				</section>
 				<MailList mails={mails} onRemoveMail={onRemoveMail} onSetMailReadStatus={onSetMailReadStatus} />
 			</main>

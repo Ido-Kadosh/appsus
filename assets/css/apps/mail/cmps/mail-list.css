@@ -1,1 +1,5 @@
 /* mail list */
+.mail-list {
+	min-width: 0;
+	flex: 1;
+}
