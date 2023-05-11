@@ -39,13 +39,15 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	user-select: none;
 }
 
 .mail-from {
 	flex: 1;
-	max-width: 15em;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	user-select: none;
+	width: 15em;
 }
 
 .mail-date {
@@ -68,4 +70,14 @@
 
 .mail-preview ~ .full-mail p {
 	white-space: pre-wrap;
+}
+
+.full-mail {
+	position: relative;
+}
+
+.full-mail .material-symbols-outlined {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
 }

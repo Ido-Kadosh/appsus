@@ -1,9 +1,23 @@
 .mail-compose {
 	width: 600px;
 	position: fixed;
+	display: flex;
+	flex-direction: column;
 	bottom: 0px;
 	right: 100px;
 	z-index: 999;
+}
+
+.mail-compose.full-screen {
+	width: 80vw;
+	height: 80vh;
+	bottom: 10vh;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.mail-compose.full-screen .form-container {
+	height: 100%;
 }
 
 .mail-compose .form-container {
@@ -27,17 +41,24 @@
 
 .mail-compose textarea {
 	flex: 1;
+	font: inherit;
 	resize: none;
 }
 
 .mail-compose header {
+	padding-block: 0.3em;
 	cursor: pointer;
 	border: none;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background-color: var(--mail-bg-clr-1);
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
+}
+
+.mail-compose h4 {
+	font-weight: 500;
 }
 
 .mail-compose > * {
@@ -53,7 +74,11 @@
 
 .mail-compose .material-symbols-outlined {
 	scale: 0.8;
-	font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' -25, 'opsz' 16;
+	font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 200, 'opsz' 16;
+}
+
+.mail-compose .material-symbols-outlined:hover::after {
+	opacity: 1;
 }
 
 .mail-compose .material-symbols-outlined::after {
@@ -65,10 +90,6 @@
 	transition: opacity 0.2s;
 	border-radius: 0;
 	position: absolute;
-}
-
-.material-symbols-outlined:hover::after {
-	opacity: 1;
 }
 
 .mail-compose.minimized .form-container {

@@ -6,10 +6,6 @@
 	padding: 20px 0;
 }
 
-nav a:hover {
-	scale: 1.2;
-}
-
 nav a.active {
 	font-weight: bold;
 	text-decoration: underline;
@@ -37,13 +33,20 @@ nav a.active {
 	border: 1px solid gray;
 	position: absolute;
 	display: grid;
+	align-items: center;
 	grid-template-columns: 1fr 1fr;
 	right: 50px;
 }
 
 .header-apps > * {
-	margin: 0;
-	padding: 0.4em;
+	box-sizing: content-box;
+	/* margin: 0; */
+	margin: 1em;
+	scale: 2;
+}
+
+.header-apps a:hover {
+	scale: 2.4;
 }
 
 .header-apps.hidden {
