@@ -51,3 +51,9 @@ img {
 button {
 	font-family: inherit;
 }
+
+@media screen and (max-width: 768px) {
+	:root {
+		font-size: 0.8rem;
+	}
+}

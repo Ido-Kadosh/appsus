@@ -4,7 +4,7 @@ const { useNavigate, useSearchParams } = ReactRouterDOM
 import { eventBusService } from '../../../services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js'
 
-export function MailSidebarFilter({ filter, active, isExpanded }) {
+export function MailFilter({ filter, active, isExpanded }) {
 	const [filterToEdit, setFilterToEdit] = useState(filter)
 	const [searchParams, setSearchParams] = useSearchParams()
 
@@ -24,7 +24,7 @@ export function MailSidebarFilter({ filter, active, isExpanded }) {
 	}
 
 	return (
-		<ul className="clean-list mail-sidebar-filter">
+		<ul className="clean-list mail-filter">
 			<li className={active === 'inbox' ? 'active' : ''} onClick={() => setFilter('inbox')}>
 				<span className="material-symbols-outlined">inbox</span>
 				{isExpanded && <span>Inbox</span>}

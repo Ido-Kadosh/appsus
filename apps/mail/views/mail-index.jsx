@@ -1,17 +1,18 @@
 const { useEffect, useState, Fragment } = React
 const { Outlet, Link, useSearchParams, useParams, useNavigate } = ReactRouterDOM
-
+const Router = ReactRouterDOM.HashRouter
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { utilService } from '../../../services/util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { mailService } from '../services/mail.service.js'
-import { MailSidebarFilter } from '../cmps/mail-sidebar-filter.jsx'
+import { MailSidebar } from '../cmps/mail-sidebar.jsx'
+import { MailDetails } from '../cmps/mail-details.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState([])
 	const [filter, setFilter] = useState(mailService.getDefaultFilter())
+	const [sort, setSort] = useState({ read: 1 })
 	const [unreadMailCount, setUnreadMailCount] = useState(0)
-	const [isExpanded, setIsExpanded] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useParams()
 
@@ -28,7 +29,7 @@ export function MailIndex() {
 
 	useEffect(() => {
 		loadMails()
-	}, [filter])
+	}, [filter, sort])
 
 	useEffect(() => {
 		setFilter(prevFilter => ({ ...prevFilter, txt: searchParams.get('txt') }))
@@ -48,11 +49,12 @@ export function MailIndex() {
 		setFilter(prevFilter => ({ ...prevFilter, ...filter }))
 	}
 
+	function loadMails() {
+		mailService.query(filter, sort).then(setMails).catch(console.log)
+	}
+
 	function onSetMailReadStatus(mailId, isRead) {
 		mailService.get(mailId).then(mail => {
-			// I wanted to check here if isRead = mail.isRead, but it made issues with clicking very fast.
-			// TODO make unreadMailCount save in local storage so that we don't call server unnecessarily
-
 			const diff = isRead ? -1 : 1
 			setUnreadMailCount(prev => prev + diff)
 			const newMail = { ...mail, isRead }
@@ -89,31 +91,21 @@ export function MailIndex() {
 		})
 		showSuccessMsg('Email restored!')
 	}
-
-	function loadMails() {
-		mailService.query(filter).then(setMails).catch(console.log)
-	}
-
-	const isExpandedClass = isExpanded ? 'expanded' : ''
 	return (
 		<Fragment>
 			<main className="mail-index">
-				<section
-					onMouseOut={() => setIsExpanded(false)}
-					onMouseOver={() => setIsExpanded(true)}
-					className={`${isExpandedClass}  mail-sidebar`}>
-					<Link className="compose-icon-container" to="/mail/compose">
-						<span className="compose-icon material-symbols-outlined">edit</span>
-						{isExpanded && <span className="compose-text">Compose</span>}
-					</Link>
-					<MailSidebarFilter isExpanded={isExpanded} active={params.filter} filter={filter} />
-				</section>
-				<MailList
-					mails={mails}
-					onRemoveMail={onRemoveMail}
-					onSetMailReadStatus={onSetMailReadStatus}
-					restoreMail={restoreMail}
-				/>
+				<MailSidebar active={params.filter} filter={filter} />
+				{!params.mailId && (
+					<MailList
+						sort={sort}
+						onSetSort={setSort}
+						mails={mails}
+						onRemoveMail={onRemoveMail}
+						onSetMailReadStatus={onSetMailReadStatus}
+						restoreMail={restoreMail}
+					/>
+				)}
+				{params.mailId && <MailDetails />}
 			</main>
 			<Outlet context={loadMails} /> {/* compose mail outlet */}
 		</Fragment>

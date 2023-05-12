@@ -57,7 +57,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 
 	function onSendToNotes(ev) {
 		ev.stopPropagation()
-		const mailToSend = { subject, body }
+		const mailToSend = { title: subject, txt: body }
 		navigate({
 			pathname: '/note',
 			search: `?${createSearchParams(mailToSend)}`,
@@ -78,10 +78,12 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 					className={`${isStarredClass} material-symbols-outlined`}>
 					star
 				</span>
-				<span className="mail-from">{from}</span>
-				<span className="mail-subject">{subject}</span>
-				<span className="mail-separator">-</span>
-				<span className="mail-body">{body}</span>
+				<div className="main-mail-container">
+					<span className="mail-from">{from}</span>
+					<span className="mail-subject">{subject}</span>
+					<span className="mail-separator">-</span>
+					<span className="mail-body">{body}</span>
+				</div>
 				<span className="mail-date">{getDateText(sentAt)}</span>
 				<div className="icons-container">
 					{!removedAt && (

@@ -38,13 +38,13 @@ nav a.active {
 	position: absolute;
 	display: grid;
 	align-items: center;
+	justify-items: center;
 	grid-template-columns: 1fr 1fr;
 	right: 50px;
 }
 
 .header-apps > * {
 	box-sizing: content-box;
-	/* margin: 0; */
 	margin: 1em;
 	scale: 2;
 }
@@ -61,9 +61,18 @@ nav a.active {
 	color: rgb(51, 68, 185);
 }
 
-.header-apps .mail {
-	color: red;
+.header-apps .mail img {
+	width: 32px;
+	height: 24px;
+	object-fit: fill;
 }
-.header-apps .note {
-	color: #fabd05;
+.header-apps .note img {
+	height: 32px;
+	object-fit: fill;
+}
+
+.header-apps .book img {
+	height: 32px;
+	width: 25px;
+	object-fit: fill;
 }

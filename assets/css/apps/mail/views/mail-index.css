@@ -2,6 +2,8 @@
 .mail-index {
 	display: flex;
 	flex: 1;
+	background-color: var(--mail-bg-clr-2);
+	padding-inline-end: 2em;
 }
 
 .close-modal-screen {

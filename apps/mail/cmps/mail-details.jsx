@@ -1,6 +1,7 @@
 const { useState, useEffect } = React
 const { useParams } = ReactRouterDOM
 
+import { utilService } from '../../../services/util.service.js'
 import { mailService } from '../services/mail.service.js'
 
 export function MailDetails() {
@@ -16,12 +17,21 @@ export function MailDetails() {
 		mailService.get(mailId).then(setMail).catch(console.log)
 	}
 
-	if (!mail) return <h1>Loading...</h1>
+	if (!mail) return <span className="loader"></span>
+	const timeReceived = utilService.formatMailDate(mail.sentAt)
 	return (
 		<section className="mail-details">
-			<h1>subject{mail.subject}</h1>
-			<h6>from {mail.from}</h6>
-			<p>from {mail.body}</p>
+			<div className="top-container">
+				<div>
+					<h1>{mail.subject}</h1>
+					<h6>from {mail.from}</h6>
+				</div>
+				<h5>{timeReceived}</h5>
+			</div>
+			<div className="mail-body">
+				<img className="mail-user-img" src="../../../assets/img/default_mail_user.jpg" alt="" />
+				<p>{mail.body}</p>
+			</div>
 		</section>
 	)
 }

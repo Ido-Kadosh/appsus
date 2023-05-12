@@ -28,6 +28,8 @@
 @import './apps/mail/cmps/mail-preview.css';
 @import './apps/mail/cmps/mail-compose.css';
 @import './apps/mail/cmps/mail-sidebar.css';
+@import './apps/mail/cmps/mail-sort.css';
+@import './apps/mail/cmps/mail-details.css';
 
 /* Note Cmps */
 @import './apps/note/cmps/note-preview.css';
@@ -36,3 +38,5 @@
 @import './apps/note/cmps/add-note.css';
 @import './apps/note/cmps/tool-bar-note.css';
 @import './apps/note/cmps/note-todos.css';
+
+@import './cmps/loader.css';

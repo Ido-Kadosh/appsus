@@ -1,0 +1,21 @@
+.mail-sort {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3em;
+}
+
+.mail-sort button {
+	font-size: 1em;
+	display: flex;
+	cursor: pointer;
+	border: none;
+	width: max-content;
+	align-items: center;
+	height: 2em;
+	margin: 0.5em;
+}
+
+.mail-sort .material-symbols-outlined:after {
+	opacity: 0;
+}

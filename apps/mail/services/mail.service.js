@@ -25,9 +25,20 @@ export const mailService = {
 
 //status: '', txt: '', isRead: null, isStarred: null, labels: []
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = { date: 1 }) {
 	return storageService.query(MAIL_KEY).then(mails => {
-		mails.sort((mail1, mail2) => mail2.sentAt - mail1.sentAt)
+		// sort
+		if (sortBy.date) {
+			mails.sort((mail1, mail2) => (mail2.sentAt - mail1.sentAt) * sortBy.date)
+		} else if (sortBy.starred) {
+			mails.sort((mail1, mail2) => (mail2.isStarred - mail1.isStarred) * sortBy.starred)
+		} else if (sortBy.read) {
+			mails.sort((mail1, mail2) => (mail1.isRead - mail2.isRead) * sortBy.read)
+		} else if (sortBy.subject) {
+			mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject) * sortBy.subject)
+		}
+
+		//filter
 		if (filterBy.status !== 'trash') {
 			mails = mails.filter(mail => !mail.removedAt)
 		}
@@ -110,7 +121,7 @@ function _createMails() {
 		mails = []
 		mails.push(
 			_createMail(
-				'm',
+				'subject of mail!',
 				'Would love to catch up sometimes!',
 				1551133930594,
 				'superlongemail@superlongcompany.com',
@@ -146,6 +157,17 @@ function _createMails() {
 				'Miss you!',
 				utilService.makeLorem(),
 				1551133930594,
+				'momo@momo.com',
+				'user@appsus.com',
+				true,
+				false
+			)
+		)
+		mails.push(
+			_createMail(
+				'A mail',
+				utilService.makeLorem(),
+				1151133930594,
 				'momo@momo.com',
 				'user@appsus.com',
 				true,

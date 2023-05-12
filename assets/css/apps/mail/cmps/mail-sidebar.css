@@ -7,31 +7,25 @@
 
 .mail-sidebar:hover {
 	padding-inline-end: 1em;
-	/* position: fixed; */
 	height: 100%;
 	z-index: 5;
 }
 
-.mail-sidebar:hover + :is(.mail-list, .no-mails-info) {
-	/* icont-size + 1rem padding each size */
-	/* margin-inline-start: calc(40px + 2rem); */
-}
-
-.mail-sidebar-filter > :hover {
+.mail-filter > :hover {
 	cursor: pointer;
 	background-color: rgba(32, 33, 36, 0.059);
 }
 
-.mail-sidebar-filter .active {
+.mail-filter .active {
 	font-weight: 600;
 	background-color: #d3e2fe;
 }
 
-.mail-sidebar-filter .material-symbols-outlined {
+.mail-filter .material-symbols-outlined {
 	padding-inline: 1rem;
 }
 
-.mail-sidebar-filter .active > .material-symbols-outlined {
+.mail-filter .active > .material-symbols-outlined {
 	font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 200, 'opsz' 48;
 }
 
@@ -39,7 +33,8 @@
 	opacity: 0;
 }
 
-.mail-sidebar-filter > * {
+.mail-filter > * {
+	display: flex;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	padding-block: 0.4em;
@@ -55,6 +50,7 @@
 }
 
 .mail-sidebar .compose-icon-container {
+	display: flex;
 	background-color: #c2e7ff;
 	padding: 0.8em 0.2em;
 	margin: 0.5em;

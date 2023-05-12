@@ -43,10 +43,13 @@ export function AppHeader() {
 						info
 					</NavLink>
 					<NavLink className="mail" title="Mail" to="/mail">
-						mail
+						<img src="/assets/img/mail_Logo.svg" alt="mail" />
 					</NavLink>
 					<NavLink className="note" title="Notes" to="/note">
-						note
+						<img src="/assets/img/notes_logo.svg" alt="notes" />
+					</NavLink>
+					<NavLink className="book" title="Books" to="/book">
+						<img src="/assets/img/books_logo.png" alt="books" />
 					</NavLink>
 				</nav>
 			</span>
