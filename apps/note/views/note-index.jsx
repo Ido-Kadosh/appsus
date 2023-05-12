@@ -14,9 +14,6 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter(searchParams))
 
-
-    console.log(filterBy)
-    console.log(searchParams)
     useEffect(() => {
         loadNotes()
         setSearchParams(filterBy)

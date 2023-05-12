@@ -1,5 +1,4 @@
 
-
 export function NoteImg({ handleChange, imgUrl }) {
 
     return (

@@ -1,12 +1,12 @@
 .add-note {
     margin-block-start: 3em;
-    margin-block-end: 10em;
+    margin-block-end: 5em;
     display: flex;
     flex-direction: column;
     min-height: 10em;
     border: 1px solid rgb(44, 41, 41);
     border-radius: 5px;
-    width: 300px;
+    min-width: 30em;
     margin-inline: auto;
     position: relative;
 
@@ -20,18 +20,26 @@
 .add-note input {
     border: none;
     background-color: inherit;
-    padding-inline-start: 0.3em;
     font-size: 1em;
-    margin-block-end: 0.3em;
+}
+
+.add-note input:focus {
+    outline: none;
 }
 
 .add-note input[name='title'] {
     font-size: 1.3em;
+    margin-block-end: 1.2em;
 
 }
 
 .add-note .tool-bar {
     display: flex;
+    padding-inline-start: 0.5em;
+}
+
+.add-note .input-container {
+    padding-inline-start: 0.5em;
 }
 
 .add-note .tool-bar span:not(:first-child) {
@@ -43,7 +51,14 @@
     place-self: end;
     background-color: inherit;
     border: none;
+    font-size: 1.1em;
 }
+
+.add-note .btn-container {
+    margin-block-end: 0.2em;
+
+}
+
 
 .add-note .note-img .img {
     width: 80%;

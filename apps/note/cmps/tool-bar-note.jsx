@@ -32,32 +32,32 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
 
     return (
         <section className="tool-bar-note">
-            <span className="material-symbols-outlined" >
-                image
-            </span>
-            <span className="material-symbols-outlined">
-                movie
-            </span>
-            <span className="material-symbols-outlined" onClick={(ev) => togglePalette(ev)}>
+            <span className="material-symbols-outlined"
+                title="Change color"
+                onClick={(ev) => togglePalette(ev)}>
                 palette
             </span>
-            {isPaletteShown && <ColorBgcNote note={note} onSetNoteStyle={onSetNoteStyle} />}
-            <span className="material-symbols-outlined">
-                text_format
-            </span>
-            <span className="material-symbols-outlined" onClick={() => onDuplicateNote(note)}>
+            {isPaletteShown &&
+                <ColorBgcNote note={note}
+                    onSetNoteStyle={onSetNoteStyle} />}
+            <span className="material-symbols-outlined"
+                title="Duplicate note"
+
+                onClick={() => onDuplicateNote(note)}>
                 content_copy
             </span>
-            <span className="material-symbols-outlined">
+            <span className="material-symbols-outlined"
+                title="Add label"
+            >
                 label
             </span>
-            <span className="material-symbols-outlined">
-                checklist
-            </span>
-            <span className="material-symbols-outlined">
+            <span className="material-symbols-outlined"
+                title="Export as email">
                 attach_email
             </span>
-            <span className="material-symbols-outlined" onClick={() => onRemoveNote(note.id)}>
+            <span className="material-symbols-outlined"
+                title="Delete note"
+                onClick={() => onRemoveNote(note.id)}>
                 delete
             </span>
 

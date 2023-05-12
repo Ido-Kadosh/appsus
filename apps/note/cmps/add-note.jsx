@@ -9,6 +9,7 @@ import { NoteTxt } from "./note-txt.jsx";
 import { NoteImg } from "./note-img.jsx";
 import { NoteVideo } from "./note-video.jsx";
 import { NoteTodos } from "./note-todos.jsx";
+import { utilService } from "../../../services/util.service.js";
 
 
 
@@ -39,19 +40,26 @@ export function AddNote({ saveNote }) {
         setNoteToEdit(prevNote => ({ ...prevNote, style: { ...newStyle } }))
     }
 
-    function handleChange({ target }) {
+    function handleChange({ target }, todoIdx) {
         const field = target.name
+        console.log(field)
         const value = target.value
-        // if (field === 'txt' || field === 'title' || field === 'imgUrl' || field === 'videoUrl') {
-        //     setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, [field]: value } }))
-        // } else setNoteToEdit(prevNote => ({ ...prevNote, [field]: value }))
-        if (field === 'title') setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
-        else if (field === 'todos') {
 
+        if (field === 'title') {
+            setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
+        } else if (field === 'todos') {
+            setNoteToEdit(prevNote => {
+                // const newTodo = { id: utilService.makeId(), txt: value, doneAt: null }
+                // const todos = [...prevNote.info.todos]
+                prevNote.todos[todoIdx] = noteService.getEmptyTodo()
+                prevNote.todos[todoIdx].id = utilService.makeId()
+                prevNote.todos[todoIdx].txt = value
+                const newTodo = todo[todoIdx]
+                return { ...prevNote, info: { title: prevNote.info.title, todos: [...todos, newTodo] } }
+            })
         } else {
             setNoteToEdit(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
         }
-
     }
 
     function onSaveNote(ev) {
@@ -82,44 +90,59 @@ export function AddNote({ saveNote }) {
                 push_pin
             </span>
 
-            <section className="input-container">
+            <section className="input-container ">
                 <input onChange={handleChange} value={title}
                     type="text" name="title" id="title" placeholder="Title" />
 
                 <DynamicNoteType noteType={noteType} handleChange={handleChange} txt={txt}
-                    imgUrl={newNote.info.imgUrl} videoUrl={newNote.info.videoUrl} />
+                    imgUrl={newNote.info.imgUrl} videoUrl={newNote.info.videoUrl} todos={newNote.info.todos} />
             </section>
 
-
-            <div className="tool-bar">
-                <span className="material-symbols-outlined" name="NoteTxt" onClick={setTypeByName}>
-                    text_format
-                </span>
-                <span className="material-symbols-outlined" name="NoteImg" onClick={setTypeByName}>
-                    image
-                </span>
-                <span className="material-symbols-outlined" name="NoteVideo" onClick={setTypeByName}>
-                    movie
-                </span>
-                <span className="material-symbols-outlined" onClick={(ev) => togglePalette(ev)}>
-                    palette
-                </span>
-                {isPaletteShown && <ColorBgcNote onSetNoteStyle={onSetNoteStyle} />}
-                <span className="material-symbols-outlined">
-                    label
-                </span>
-                <span className="material-symbols-outlined" name="NoteTodos" onClick={setTypeByName}>
-                    checklist
-                </span>
+            <div className="btn-container flex space-between">
+                <div className="tool-bar">
+                    <span className="material-symbols-outlined"
+                        title="Change color"
+                        onClick={(ev) => togglePalette(ev)}>
+                        palette
+                    </span>
+                    {isPaletteShown &&
+                        <ColorBgcNote onSetNoteStyle={onSetNoteStyle} />}
+                    <span className="material-symbols-outlined"
+                        name="NoteTxt"
+                        title="Add text"
+                        onClick={setTypeByName}>
+                        text_format
+                    </span>
+                    <span className="material-symbols-outlined"
+                        name="NoteImg"
+                        title="Add image"
+                        onClick={setTypeByName}>
+                        image
+                    </span>
+                    <span className="material-symbols-outlined"
+                        name="NoteVideo"
+                        title="Add video"
+                        onClick={setTypeByName}>
+                        movie
+                    </span>
+                    <span className="material-symbols-outlined">
+                        label
+                    </span>
+                    <span className="material-symbols-outlined"
+                        name="NoteTodos"
+                        title="Add todos"
+                        onClick={setTypeByName}>
+                        checklist
+                    </span>
+                </div>
+                <button onClick={onSaveNote} className="add-btn">Add</button>
             </div>
-            <button onClick={onSaveNote} className="add-btn">Add</button>
-
         </section>
     )
 
 }
 
-function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl }) {
+function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl, todos }) {
     switch (noteType) {
         case 'NoteTxt':
             return <NoteTxt handleChange={handleChange} txt={txt} />
@@ -128,7 +151,7 @@ function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl }) {
         case 'NoteVideo':
             return <NoteVideo handleChange={handleChange} videoUrl={videoUrl} />
         case 'NoteTodos':
-            return <NoteTodos handleChange={handleChange} />
+            return <NoteTodos handleChange={handleChange} todos={todos} />
     }
 }
 

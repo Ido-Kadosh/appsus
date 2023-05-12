@@ -13,32 +13,24 @@ export function NoteList({ notes, onRemoveNote, duplicateNote, togglePinned }) {
         filterPinnedNotes()
     }, [notes])
 
-
     function filterPinnedNotes() {
-        console.log(notes)
         const pinnedNotes = notes.filter(note => note.isPinned)
         const unPinnedNotes = notes.filter(note => !note.isPinned)
-
-        console.log(pinnedNotes)
         setPinnedNotes(pinnedNotes)
         setUnPinnedNotes(unPinnedNotes)
     }
 
-
-
     return (
         <React.Fragment>
-
             {!!pinnedNotes.length && <section className="note-list-pinned">
                 <h1>Pinned</h1>
                 <ul className="note-list clean-list">
                     {pinnedNotes.map(note =>
                         <li key={note.id}>
                             <NotePreview note={note} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
-                                duplicateNote={duplicateNote} setPinnedNotes={setPinnedNotes} />
+                                duplicateNote={duplicateNote} />
                         </li>
                     )}
-
                 </ul>
             </section>}
 
@@ -48,7 +40,7 @@ export function NoteList({ notes, onRemoveNote, duplicateNote, togglePinned }) {
                     {unPinnedNotes.map(note =>
                         <li key={note.id}>
                             <NotePreview note={note} onRemoveNote={onRemoveNote} togglePinned={togglePinned}
-                                duplicateNote={duplicateNote} setPinnedNotes={setPinnedNotes} />
+                                duplicateNote={duplicateNote} />
                         </li>
                     )}
                 </ul>

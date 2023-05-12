@@ -14,7 +14,10 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
-    getDefaultFilter
+    getDefaultFilter,
+    addTodo,
+    removeTodo,
+    getEmptyTodo
 }
 
 function query(filterBy = {}) {
@@ -85,4 +88,27 @@ function _createNote(type = '', isPinned = '', createdAt = Date.now()) {
     const note = getEmptyNote(type, isPinned, createdAt)
     note.id = utilService.makeId()
     return note
+}
+
+function addTodo(noteId, todo) {
+    todo.id = utilService.makeId()
+    return get(noteId)
+        .then((currNote => {
+            currNote.todos.push(todo)
+            return currNote
+        }))
+        .then(save)
+}
+
+function removeTodo(noteId, todoId) {
+    return get(noteId)
+        .then(((currNote) => {
+            const idx = currNote.todos.findIndex(todo => todo.id === todoId)
+            currNote.todos.splice(idx, 1)
+            save(currNote)
+        }))
+}
+
+function getEmptyTodo() {
+    return { id: '', txt: '', doneAt: null }
 }

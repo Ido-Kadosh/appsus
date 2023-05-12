@@ -1,3 +1,4 @@
+
 const { useState, useRef, useEffect } = React
 
 import { utilService } from "../../../services/util.service.js";
@@ -5,12 +6,13 @@ import { noteService } from "../services/note.service.js";
 import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { ToolBarNote } from "./tool-bar-note.jsx";
 
-export function NotePreview({ note, onRemoveNote, duplicateNote, setPinnedNotes, togglePinned }) {
+export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned }) {
 
-    const { id, info: { txt, title, imgUrl, videoUrl }, type } = note
+    const { id, info: { txt, title, imgUrl, videoUrl, todos }, type } = note
 
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const [noteStyle, setNoteStyle] = useState(note.style)
+
 
     const elInputTitle = useRef(title)
     const elInputTxt = useRef(txt)
@@ -32,8 +34,8 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, setPinnedNotes,
     function onTogglePinned(ev) {
         ev.stopPropagation()
         togglePinned(note)
+        setIsPinned(prevPinned => !prevPinned)
     }
-
 
 
     function onSaveChanges() {
@@ -47,12 +49,15 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, setPinnedNotes,
             })
     }
 
+
     const isPinnedClass = isPinned ? 'pinned' : ''
     return (
 
 
         <article className="note-preview" style={noteStyle}>
-            <span onClick={onTogglePinned} className={`${isPinnedClass} material-symbols-outlined pin-icon `} >
+            <span onClick={onTogglePinned}
+                title="Pin note"
+                className={`${isPinnedClass} material-symbols-outlined pin-icon `} >
                 push_pin
             </span>
             <div className="content-editable-container" onBlur={onSaveChanges}>
@@ -77,6 +82,17 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, setPinnedNotes,
                 }
                 {type === 'NoteVideo' &&
                     <iframe src={videoUrl}></iframe>
+                }
+                {type === 'NoteTodos' &&
+                    <ul className="clean-list">
+                        {todos && todos.map(todo =>
+                            <li key={todo.id}>
+                                <input type="checkbox" />
+                                <span> {todo.txt}</span>
+                                <button> X </button>
+
+                            </li>)}
+                    </ul>
                 }
             </div>
             <ToolBarNote onSetNoteStyle={onSetNoteStyle} note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
