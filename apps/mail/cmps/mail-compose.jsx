@@ -41,6 +41,12 @@ export function MailCompose() {
 		setIsMinimized(false)
 	}
 
+	function handleBackgroundDiv() {
+		if (isFullScreen) setIsFullScreen(false) // if pressed when screen is large, go out of fullscreen.
+		else navigate('/mail') // if pressed when screen is small, close.
+	}
+
+	const { matches: isSmallScreen } = window.matchMedia('(max-width:600px')
 	const isFullScreenClass = isFullScreen ? 'full-screen' : ''
 	const isMinimizedClass = isMinimized ? 'minimized' : ''
 	const { subject, body, to } = newMail
@@ -96,15 +102,13 @@ export function MailCompose() {
 						<textarea value={body} onChange={handleChange} name="body" id="body" type="text" />
 						<section className="tool-bar">
 							<button className="btn-send-mail">Send</button>
-							<div className="icon-container">
-								<span className="material-symbols-outlined">attach_file</span>
-								<span className="material-symbols-outlined">image</span>
-							</div>
 						</section>
 					</form>
 				</div>
 			</section>
-			{isFullScreen && <div className="close-modal-screen" onClick={() => onFullScreen(false)}></div>}
+			{(isFullScreen || isSmallScreen) && (
+				<div className="close-modal-screen" onClick={handleBackgroundDiv}></div>
+			)}
 		</Fragment>
 	)
 }

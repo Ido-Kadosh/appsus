@@ -6,6 +6,9 @@
 	bottom: 0px;
 	right: 100px;
 	z-index: 999;
+	box-shadow: var(--mail-box-shadow-2);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 
 .mail-compose.full-screen {
@@ -21,6 +24,7 @@
 }
 
 .mail-compose .form-container {
+	padding-inline: 1em;
 	background: #fff;
 	height: 570px;
 	border: 1px solid #dadce0;
@@ -46,6 +50,7 @@
 }
 
 .mail-compose header {
+	padding-inline: 1em;
 	padding-block: 0.3em;
 	cursor: pointer;
 	border: none;
@@ -59,10 +64,6 @@
 
 .mail-compose h4 {
 	font-weight: 500;
-}
-
-.mail-compose > * {
-	padding-inline: 1em;
 }
 
 .mail-compose span.icon {
@@ -110,4 +111,32 @@
 	border-radius: 999px;
 	width: 6em;
 	height: 2em;
+}
+
+@media screen and (max-width: 768px) {
+	.mail-compose {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.mail-compose {
+		width: 80vw;
+		height: 80vh;
+		bottom: 10vh;
+	}
+
+	.mail-compose .form-container {
+		height: 100%;
+	}
+
+	.mail-compose.mail-compose.full-screen {
+		width: 100vw;
+		height: 100vh;
+		bottom: 0;
+	}
+	.mail-compose header {
+		border-radius: 0px;
+	}
 }

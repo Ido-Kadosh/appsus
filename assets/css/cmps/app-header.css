@@ -3,15 +3,13 @@
 	display: flex;
 	justify-content: space-between;
 	height: 5rem;
-}
-
-nav a.active {
-	font-weight: bold;
-	text-decoration: underline;
+	width: 100%;
 }
 
 .app-header a {
 	align-self: center;
+	padding: 1em;
+	text-align: center;
 }
 
 .app-header-logo {
@@ -20,11 +18,16 @@ nav a.active {
 }
 
 .app-header-hamburger {
+	scale: 1.4;
+	right: -0.5em;
 	align-self: center;
 	padding-inline-end: 20px;
+	position: relative;
+	z-index: 999;
 }
 
 .app-header-hamburger::after {
+	position: absolute;
 	top: -8px;
 	bottom: -9px;
 	left: -9px;
@@ -32,47 +35,74 @@ nav a.active {
 }
 
 .header-apps {
-	z-index: 999;
-	background-color: #fff;
-	border: 1px solid gray;
+	font-size: 0.85em;
+	color: rgba(0, 0, 0, 0.75);
 	position: absolute;
 	display: grid;
+	gap: 1em;
+	padding: 1em;
+	grid-template-columns: 1fr 1fr;
 	align-items: center;
 	justify-items: center;
-	grid-template-columns: 1fr 1fr;
+	background-color: #fff;
+	box-shadow: var(--mail-box-shadow-1);
+	border-radius: 8px;
+	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
 	right: 50px;
-}
-
-.header-apps > * {
-	box-sizing: content-box;
-	margin: 1em;
-	scale: 2;
+	z-index: 999;
 }
 
 .header-apps a:hover {
-	scale: 2.4;
+	background-color: rgb(232, 240, 254);
+	border-radius: 10px;
 }
 
 .header-apps.hidden {
 	display: none;
 }
 
-.header-apps .home {
-	color: rgb(51, 68, 185);
+.header-apps .home img {
+	width: 32px;
+	height: 32px;
+	object-fit: fill;
+}
+
+.header-apps .home::after {
+	content: 'Home';
 }
 
 .header-apps .mail img {
 	width: 32px;
-	height: 24px;
-	object-fit: fill;
-}
-.header-apps .note img {
 	height: 32px;
 	object-fit: fill;
+}
+
+.header-apps .mail::after {
+	content: 'Mail';
+}
+
+.header-apps .note img {
+	height: 32px;
+	width: 32px;
+	object-fit: fill;
+}
+
+.header-apps .note::after {
+	content: 'Notes';
 }
 
 .header-apps .book img {
 	height: 32px;
 	width: 25px;
 	object-fit: fill;
+}
+
+.header-apps .book::after {
+	content: 'Books';
+}
+
+@media screen and (min-width: 400px) {
+	.app-header .app-header-hamburger {
+		right: 0.7em;
+	}
 }
