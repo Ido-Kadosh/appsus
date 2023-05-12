@@ -54,6 +54,6 @@ button {
 
 @media screen and (max-width: 768px) {
 	:root {
-		font-size: 0.8rem;
+		font-size: 0.9rem;
 	}
 }

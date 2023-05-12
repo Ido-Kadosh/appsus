@@ -31,7 +31,7 @@ export function NoteTodos({ handleChange }) {
                     placeholder="Add todo..."
                     type="text"
                     value={todo.txt}
-                    onBlur={(ev) => handleChange(ev, idx)}
+                    // onBlur={(ev) => handleChange(ev, idx)}
                     onChange={(ev) => updateTodo(idx, ev.target.value)}
                 />
                 <button onClick={() => removeTodo(idx)}>X</button>

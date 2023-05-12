@@ -17,7 +17,7 @@ export function AddNote({ saveNote }) {
 
     const [isPaletteShown, setIsPaletteShown] = useState(false)
     const [isPinned, setIsPinned] = useState(false)
-    const [newNote, setNoteToEdit] = useState(noteService.getEmptyNote())
+    const [newNote, setNewNote] = useState(noteService.getEmptyNote())
     const [noteType, setNoteType] = useState('NoteTxt')
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export function AddNote({ saveNote }) {
 
     function onSetNoteStyle(newStyle) {
         console.log(newStyle)
-        setNoteToEdit(prevNote => ({ ...prevNote, style: { ...newStyle } }))
+        setNewNote(prevNote => ({ ...prevNote, style: { ...newStyle } }))
     }
 
     function handleChange({ target }, todoIdx) {
@@ -46,9 +46,9 @@ export function AddNote({ saveNote }) {
         const value = target.value
 
         if (field === 'title') {
-            setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
+            setNewNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
         } else if (field === 'todos') {
-            setNoteToEdit(prevNote => {
+            setNewNote(prevNote => {
                 // const newTodo = { id: utilService.makeId(), txt: value, doneAt: null }
                 // const todos = [...prevNote.info.todos]
                 prevNote.todos[todoIdx] = noteService.getEmptyTodo()
@@ -58,19 +58,19 @@ export function AddNote({ saveNote }) {
                 return { ...prevNote, info: { title: prevNote.info.title, todos: [...todos, newTodo] } }
             })
         } else {
-            setNoteToEdit(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
+            setNewNote(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
         }
     }
 
     function onSaveNote(ev) {
         ev.preventDefault()
         saveNote(newNote)
-        setNoteToEdit(noteService.getEmptyNote())
+        setNewNote(noteService.getEmptyNote())
     }
 
     function togglePinned(ev) {
         newNote.isPinned = !newNote.isPinned
-        setNoteToEdit((prevNote) => ({ ...prevNote, ...isPinned }))
+        setNewNote((prevNote) => ({ ...prevNote, ...isPinned }))
         ev.stopPropagation()
         setIsPinned((prev) => !prev)
     }
@@ -78,7 +78,7 @@ export function AddNote({ saveNote }) {
     function setTypeByName({ target }) {
         const field = target.getAttribute('name')
         setNoteType(field)
-        setNoteToEdit(prevNote => ({ ...prevNote, type: field }))
+        setNewNote(prevNote => ({ ...prevNote, type: field }))
     }
 
     const isPinnedClass = isPinned ? 'pinned' : ''
