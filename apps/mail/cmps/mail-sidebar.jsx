@@ -5,17 +5,20 @@ const { Link } = ReactRouterDOM
 
 export function MailSidebar({ active, filter }) {
 	const [isExpanded, setIsExpanded] = useState(false)
-	const isExpandedClass = isExpanded ? 'expanded' : ''
+
+	const { matches: isLargeScreen } = window.matchMedia('(min-width:768px')
+	const shouldExpandClass = isExpanded && isLargeScreen ? 'expanded' : ''
+	const shouldExpand = isExpanded && isLargeScreen
 	return (
 		<section
-			className={`${isExpandedClass}  mail-sidebar`}
+			className={`${shouldExpandClass}  mail-sidebar`}
 			onMouseOut={() => setIsExpanded(false)}
 			onMouseOver={() => setIsExpanded(true)}>
 			<Link className="compose-icon-container" to="/mail/compose">
 				<span className="compose-icon material-symbols-outlined">edit</span>
-				{isExpanded && <span className="compose-text">Compose</span>}
+				{shouldExpand && <span className="compose-text">Compose</span>}
 			</Link>
-			<MailFilter isExpanded={isExpanded} active={active} filter={filter} />
+			<MailFilter isExpanded={shouldExpand} active={active} filter={filter} />
 		</section>
 	)
 }

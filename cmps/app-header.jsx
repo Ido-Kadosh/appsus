@@ -30,17 +30,11 @@ export function AppHeader() {
 				<img className="app-header-logo" src="assets\img\favicon.svg" />
 			</Link>
 			{['note', 'mail'].includes(currentPath) && <HeaderSearch location={currentPath} />}
-			<span
-				title="Appsus apps"
-				onClick={toggleNavPreview}
-				className="app-header-hamburger material-symbols-outlined">
-				apps
+			<span title="Appsus apps" onClick={toggleNavPreview} className="app-header-hamburger ">
+				<span className="material-symbols-outlined">apps</span>
 				<nav className={`${visibleClass} header-apps`}>
 					<NavLink className="home" title="Home" to="/">
-						Home
-					</NavLink>
-					<NavLink className="about" title="About" to="/about">
-						info
+						<img src="/assets/img/home_logo.svg" alt="home" />
 					</NavLink>
 					<NavLink className="mail" title="Mail" to="/mail">
 						<img src="/assets/img/mail_Logo.svg" alt="mail" />

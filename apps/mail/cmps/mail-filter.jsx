@@ -22,7 +22,6 @@ export function MailFilter({ filter, active, isExpanded }) {
 		if (active === path) navigate('/mail')
 		else navigate(`/mail/${path}`)
 	}
-
 	return (
 		<ul className="clean-list mail-filter">
 			<li className={active === 'inbox' ? 'active' : ''} onClick={() => setFilter('inbox')}>
