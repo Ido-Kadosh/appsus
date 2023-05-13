@@ -6,7 +6,7 @@
     min-height: 10em;
     border: 1px solid #d3cece;
     border-radius: 5px;
-    min-width: 30em;
+    width: 30em;
     margin-inline: auto;
     position: relative;
 
@@ -83,8 +83,9 @@
     top: 10px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 450px) {
 	.add-note {
-		width: 400px;
+        width: 20em;
+        justify-content: center;
 	}
 }
