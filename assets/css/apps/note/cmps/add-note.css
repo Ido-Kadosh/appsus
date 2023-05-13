@@ -85,6 +85,6 @@
 
 @media (max-width: 640px) {
 	.add-note {
-		width: 400px;
+		min-width: 400px;
 	}
 }
