@@ -1,15 +1,15 @@
 
-
 const { useState, useEffect } = React
+const { useNavigate, createSearchParams } = ReactRouterDOM
 
 import { ColorBgcNote } from "./color-bgc-note.jsx";
 
-
-
-
 export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle }) {
 
+    const { info : {title , txt}} = note
+
     const [isPaletteShown, setIsPaletteShown] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         document.addEventListener('click', () => setIsPaletteShown(false))
@@ -28,7 +28,12 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
         duplicateNote(note)
     }
 
-
+    function onExportMail() {
+        navigate({
+            pathname: '/mail/compose',
+            search: `?${createSearchParams({subject: title, body: txt})}`,
+        })
+    }
 
     return (
         <section className="tool-bar-note">
@@ -52,6 +57,7 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
                 label
             </span>
             <span className="material-symbols-outlined"
+                onClick={onExportMail}
                 title="Export as email">
                 attach_email
             </span>

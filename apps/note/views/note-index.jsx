@@ -5,8 +5,6 @@ import { noteService } from '../services/note.service.js'
 import { eventBusService, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { NoteList } from '../cmps/note-list.jsx'
 import { AddNote } from '../cmps/add-note.jsx'
-import { utilService } from '../../../services/util.service.js'
-import { NoteFilter } from '../cmps/note-filter.jsx'
 
 export function NoteIndex() {
 	const [searchParams, setSearchParams] = useSearchParams()
@@ -15,7 +13,9 @@ export function NoteIndex() {
 
 	useEffect(() => {
 		loadNotes()
-		setSearchParams(filterBy)
+		if (filterBy.txt) {
+			setSearchParams(filterBy)
+		}
 	}, [filterBy])
 
 	useEffect(() => {

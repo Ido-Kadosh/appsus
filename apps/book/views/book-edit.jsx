@@ -54,7 +54,7 @@ export function BookEdit() {
 		<section className="book-edit">
 			<h2>{bookToEdit.id ? 'Edit' : 'Add'} Book</h2>
 
-			<form onSubmit={onSaveBook} className="flex flex-column justify-center book-edit-form">
+			<form onSubmit={onSaveBook} className="flex column justify-center book-edit-form">
 				<label htmlFor="title">Title:</label>
 				<input required onChange={handleChange} value={title} type="text" name="title" id="title" />
 

@@ -1,8 +1,9 @@
 
 const { useState, useRef, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
-import { showSuccessMsg } from "../../../services/event-bus.service.js"
+import { showSuccessMsg , showErrorMsg } from "../../../services/event-bus.service.js"
 import { ToolBarNote } from "./tool-bar-note.jsx"
 import { ColorBgcNote } from "./color-bgc-note.jsx";
 import { NoteTxt } from "./note-txt.jsx";
@@ -11,14 +12,14 @@ import { NoteVideo } from "./note-video.jsx";
 import { NoteTodos } from "./note-todos.jsx";
 import { utilService } from "../../../services/util.service.js";
 
-
-
 export function AddNote({ saveNote }) {
 
+    const [searchParamsFromMail, setSearchParamsFromMail] = useSearchParams()
     const [isPaletteShown, setIsPaletteShown] = useState(false)
     const [isPinned, setIsPinned] = useState(false)
-    const [newNote, setNewNote] = useState(noteService.getEmptyNote())
+    const [newNote, setNewNote] = useState(noteService.getEmptyNoteFromMail(searchParamsFromMail))
     const [noteType, setNoteType] = useState('NoteTxt')
+
 
     useEffect(() => {
         document.addEventListener('click', () => setIsPaletteShown(false))
@@ -36,17 +37,17 @@ export function AddNote({ saveNote }) {
     }
 
     function onSetNoteStyle(newStyle) {
-        console.log(newStyle)
         setNewNote(prevNote => ({ ...prevNote, style: { ...newStyle } }))
     }
 
     function handleChange({ target }, todoIdx) {
         const field = target.name
-        console.log(field)
         const value = target.value
 
         if (field === 'title') {
             setNewNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
+            searchParamsFromMail.set('title' , value)
+            setSearchParamsFromMail(searchParamsFromMail)
         } else if (field === 'todos') {
             setNewNote(prevNote => {
                 // const newTodo = { id: utilService.makeId(), txt: value, doneAt: null }
@@ -57,12 +58,21 @@ export function AddNote({ saveNote }) {
                 const newTodo = todo[todoIdx]
                 return { ...prevNote, info: { title: prevNote.info.title, todos: [...todos, newTodo] } }
             })
+        } else if (field === 'txt') {
+            setNewNote(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
+            searchParamsFromMail.set('txtFromMail' , value)
+            setSearchParamsFromMail(searchParamsFromMail)
+
         } else {
             setNewNote(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
         }
     }
 
     function onSaveNote(ev) {
+        if (!newNote.info.txt && !newNote.info.title) {
+            showErrorMsg('Title or text required')
+            return
+        } 
         ev.preventDefault()
         saveNote(newNote)
         setNewNote(noteService.getEmptyNote())
