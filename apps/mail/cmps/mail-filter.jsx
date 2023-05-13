@@ -1,8 +1,8 @@
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 const { useNavigate, useSearchParams } = ReactRouterDOM
 
 import { eventBusService } from '../../../services/event-bus.service.js'
-export function MailFilter({ active, isExpanded }) {
+export function MailFilter({ active, isExpanded, unreadMailCount }) {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const navigate = useNavigate()
 
@@ -17,11 +17,17 @@ export function MailFilter({ active, isExpanded }) {
 		if (active === path) navigate('/mail')
 		else navigate(`/mail/${path}`)
 	}
+
 	return (
 		<ul className="clean-list mail-filter">
 			<li className={active === 'inbox' ? 'active' : ''} onClick={() => setFilter('inbox')}>
 				<span className="material-symbols-outlined">inbox</span>
-				{isExpanded && <span>Inbox</span>}
+				{isExpanded && (
+					<Fragment>
+						<span>Inbox</span>
+						{unreadMailCount > 0 && <span className="unread-mail-count">{unreadMailCount}</span>}
+					</Fragment>
+				)}
 			</li>
 			<li className={active === 'starred' ? 'active' : ''} onClick={() => setFilter('starred')}>
 				<span className="material-symbols-outlined">star</span>

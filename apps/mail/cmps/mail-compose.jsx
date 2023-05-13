@@ -15,14 +15,17 @@ export function MailCompose() {
 	function onAddMail(ev) {
 		ev.preventDefault()
 		if (!utilService.validateMail(newMail.to)) {
-			showErrorMsg('invalid Email Address!')
+			showErrorMsg('Invalid Email Address!')
 			return
 		}
-		mailService.save({ ...newMail, sentAt: Date.now(), from: mailService.getLoggedUser().email }).then(() => {
-			showSuccessMsg('Email Sent!')
-			navigate('/mail')
-			loadMails()
-		})
+		mailService
+			.save({ ...newMail, sentAt: Date.now(), from: mailService.getLoggedUser().email })
+			.then(() => {
+				showSuccessMsg('Email Sent!')
+				navigate('/mail')
+				loadMails()
+			})
+			.catch(() => showErrorMsg('Sending mail failed'))
 	}
 
 	function onMinimize(isMinimizeState, ev) {

@@ -19,9 +19,9 @@
 
 .app-header-hamburger {
 	scale: 1.4;
-	right: -0.5em;
+	right: 2em;
 	align-self: center;
-	padding-inline-end: 20px;
+	/* padding-inline-end: 40px; */
 	position: relative;
 	z-index: 999;
 }
@@ -99,10 +99,4 @@
 
 .header-apps .book::after {
 	content: 'Books';
-}
-
-@media screen and (min-width: 400px) {
-	.app-header .app-header-hamburger {
-		right: 0.7em;
-	}
 }

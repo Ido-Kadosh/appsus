@@ -8,19 +8,21 @@ export function Home() {
 	return (
 		<main className="home">
 			<section className="img-container">
-				<h1>Amazing experience in appsus mail, efficient, useful and friendly</h1>
+				<h1>Experience our amazing friendly designed tools for free!</h1>
 				<button
 					//anchor href with id doesn't work with react, and we don't have hashlinks installed, so we use this hack.
-					onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+					// image ratio is 1.5 so we scroll 1.5 it's width, and then 75px for header size.
+					// in real scenarios, we will use React router anchor, which isn't installed here.
+					onClick={() => window.scrollTo({ top: document.body.scrollWidth / 1.5 + 75, behavior: 'smooth' })}
 					className="started-btn">
 					Get Started
 				</button>
-				<img src="https://media.istockphoto.com/id/1093508248/photo/modern-work-table-with-computer-laptop-and-cityscapes-view-from-window-business-concepts-ideas.jpg?s=612x612&w=0&k=20&c=vpMc1UR6KfgPe4GYcFG4x1FfPKLyYsoKqrAJolfBSZs="></img>
+				<img src="./assets/img/hero-img.jpg"></img>
 			</section>
 			<h2 className="our-features">Our Features </h2>
 			<section className="card-container">
 				<div className="card appsus-mail flex column align-center">
-					<img className="card-img" src="../../assets/img/mail_logo.svg" alt=""></img>
+					<img className="card-img" src="./assets/img/mail_logo.svg" alt=""></img>
 					<h3>Appsus mail</h3>
 
 					<p>Send and receive mails with our encrypted mailing service</p>
@@ -29,14 +31,14 @@ export function Home() {
 				</div>
 
 				<div id="our-features" className="card appsus-keep flex column align-center">
-					<img className="card-img" src="../../assets/img/notes_logo.svg" alt=""></img>
+					<img className="card-img" src="./assets/img/notes_logo.svg" alt=""></img>
 					<h3>Appsus keep</h3>
 					<p>Quickly capture what's on your mind. Add notes and photos to Appsus Notes </p>
 					<Link to="/note">Learn more</Link>
 				</div>
 
 				<div className="card appsus-books flex column align-center">
-					<img className="card-img" src="../../assets/img/books_logo.png" alt=""></img>
+					<img className="card-img" src="./assets/img/books_logo.png" alt=""></img>
 
 					<h3>Appsus books</h3>
 					<p>Search the world's most comprehensive index of full-text books</p>
@@ -49,7 +51,7 @@ export function Home() {
 			<section className="about-us-container flex column">
 				<article className="stav flex">
 					<div className="stav-img-container">
-						<img src="../assets/img/stav-img.jpeg" alt="" />
+						<img src="./assets/img/stav-img.jpeg" alt="" />
 					</div>
 					<div className="about-details flex column">
 						<h4>Stav Tohami</h4>
@@ -67,7 +69,7 @@ export function Home() {
 
 				<article className="ido flex">
 					<div className="ido-img-container">
-						<img src="../assets/img/ido-img.jpeg" alt="" />
+						<img src="./assets/img/ido-img.jpeg" alt="" />
 					</div>
 					<div className="about-details flex column">
 						<h4>Ido Kadosh</h4>

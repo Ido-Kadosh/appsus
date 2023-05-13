@@ -3,7 +3,7 @@ import { MailFilter } from './mail-filter.jsx'
 const { useState } = React
 const { Link } = ReactRouterDOM
 
-export function MailSidebar({ active }) {
+export function MailSidebar({ active, unreadMailCount }) {
 	const [isExpanded, setIsExpanded] = useState(false)
 
 	const { matches: isLargeScreen } = window.matchMedia('(min-width:768px')
@@ -18,7 +18,7 @@ export function MailSidebar({ active }) {
 				<span className="compose-icon material-symbols-outlined">edit</span>
 				{shouldExpand && <span className="compose-text">Compose</span>}
 			</Link>
-			<MailFilter isExpanded={shouldExpand} active={active} />
+			<MailFilter unreadMailCount={unreadMailCount} isExpanded={shouldExpand} active={active} />
 		</section>
 	)
 }
