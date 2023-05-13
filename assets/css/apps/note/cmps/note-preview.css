@@ -16,8 +16,13 @@
 }
 
 .note-preview h1 {
-	font-size: 1.4em;
+	font-weight:500;
+	font-size: 1.5em;
 	padding-inline-end: 20px;
+}
+
+.note-preview p {
+	font-size: 1.1em;
 }
 
 .note-preview img {

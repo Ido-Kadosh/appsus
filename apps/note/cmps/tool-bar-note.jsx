@@ -6,11 +6,10 @@ import { ColorBgcNote } from "./color-bgc-note.jsx";
 
 export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle }) {
 
-    const { info : {title , txt}} = note
-
     const [isPaletteShown, setIsPaletteShown] = useState(false)
     const navigate = useNavigate()
-
+    
+    const { info : {title , txt}} = note
     useEffect(() => {
         document.addEventListener('click', () => setIsPaletteShown(false))
         return (
@@ -61,7 +60,6 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
                 onClick={() => onRemoveNote(note.id)}>
                 delete
             </span>
-
         </section>
     )
 }

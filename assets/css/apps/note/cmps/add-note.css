@@ -20,7 +20,7 @@
 .add-note input {
     border: none;
     background-color: inherit;
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .add-note input:focus {
@@ -28,7 +28,9 @@
 }
 
 .add-note input[name='title'] {
-    font-size: 1.3em;
+    font-weight: 600;
+    font-size: 1.5em;
+    font-weight: 500;
     margin-block-end: 1.2em;
 
 }
