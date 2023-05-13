@@ -35,11 +35,14 @@
      background-color: rgb(238, 87, 87);
  }
 
+/* ///////////////////////////////// */
+
+
+
+
  .home .card-container {
      display: flex;
-     /* margin-inline: auto; */
      justify-content: space-around;
-     /* height: 20em; */
  }
 
  .home .card-container .card {

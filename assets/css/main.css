@@ -9,6 +9,7 @@
 @import './basics/helpers.css';
 @import './basics/icons.css';
 @import './basics/layout.css';
+@import './basics/forms.css';
 
 /* Views */
 @import './views/home.css';
@@ -41,3 +42,12 @@
 @import './apps/note/cmps/note-todos.css';
 
 @import './cmps/loader.css';
+
+
+/* Book Cmps */
+@import './apps/book/cmps/add-review.css';
+@import './apps/book/cmps/book-details.css';
+@import './apps/book/cmps/book-edit.css';
+@import './apps/book/cmps/book-filter.css';
+@import './apps/book/cmps/book-list.css';
+@import './apps/book/cmps/book-preview.css';

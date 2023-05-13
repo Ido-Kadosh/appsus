@@ -1,33 +1,27 @@
 
 export function Home() {
 
-    //  <section className="home">
-    {/* <h1>Welcome to home page!</h1> */ }
-    // </section >
-
     return (
 
         <main className="home">
+           
+           
+           
             <section className="img-container">
                 <h1>Amazing experience in appsus mail, efficient, useful and friendly</h1>
                 <button className="started-btn">Get Started</button>
                 <img src="https://media.istockphoto.com/id/1093508248/photo/modern-work-table-with-computer-laptop-and-cityscapes-view-from-window-business-concepts-ideas.jpg?s=612x612&w=0&k=20&c=vpMc1UR6KfgPe4GYcFG4x1FfPKLyYsoKqrAJolfBSZs="></img>
-
-
             </section>
+           
             <h2 className="our-features">Our Features </h2>
+           
             <section className="card-container">
-
-
                 <div className="card appsus-mail flex column align-center">
                     <img className="card-img" src="../../assets/img/mail_logo.svg" alt=""></img>
                     <h3>Appsus mail</h3>
-
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis culpa nihil unde enim quasi
                         quisquam voluptate minima beatae aspernatur delectus?</p>
-
                     <button>Learn more</button>
-
                 </div>
 
 
@@ -37,7 +31,6 @@ export function Home() {
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis culpa nihil unde enim quasi
                         quisquam voluptate minima beatae aspernatur delectus?</p>
                     <button>Learn more</button>
-
                 </div>
 
 
