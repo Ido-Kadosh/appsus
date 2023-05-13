@@ -30,6 +30,13 @@ export function NoteIndex() {
 		noteService.query(filterBy).then(setNotes)
 	}
 
+	function onSetNoteStyle(noteId, newStyle) {
+		noteService.get(noteId).then(note => {
+			const newNote = { ...note, style: newStyle }
+			noteService.save(newNote).then(() => loadNotes())
+		})
+	}
+
 	function onRemoveNote(noteId) {
 		noteService.remove(noteId).then(() => {
 			const updatedNotes = notes.filter(note => note.id !== noteId)
@@ -61,6 +68,7 @@ export function NoteIndex() {
 		<section className="note-index main-layout">
 			<AddNote saveNote={saveNote} />
 			<NoteList
+				onSetNoteStyle={onSetNoteStyle}
 				notes={notes}
 				onRemoveNote={onRemoveNote}
 				togglePinned={togglePinned}

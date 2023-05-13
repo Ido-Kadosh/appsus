@@ -66,7 +66,7 @@ function getEmptyNote(
 	}
 }
 
-function getEmptyNoteFromMail(searchParams = { get: () => { } }) {
+function getEmptyNoteFromMail(searchParams = { get: () => {} }) {
 	return {
 		id: '',
 		createdAt: Date.now(),
@@ -82,7 +82,7 @@ function getEmptyNoteFromMail(searchParams = { get: () => { } }) {
 	}
 }
 
-function getDefaultFilter(searchParams = { get: () => { } }) {
+function getDefaultFilter(searchParams = { get: () => {} }) {
 	return {
 		txt: searchParams.get('txt') || '',
 	}
@@ -188,4 +188,3 @@ function _createNotes() {
 		utilService.saveToStorage(NOTE_KEY, notes)
 	}
 }
-

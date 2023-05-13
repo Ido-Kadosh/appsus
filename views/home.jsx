@@ -56,7 +56,7 @@ export function Home() {
 					<div className="about-details flex column">
 						<h4>Stav Tohami</h4>
 						<p>
-							23 years old from Hadera, Israel. Passionate about coding and always up for a challenge.
+							23 years old from Caesarea, Israel. Passionate about coding and always up for a challenge.
 							Studying web development in Coding-Academy.
 						</p>
 					</div>
