@@ -21,6 +21,7 @@ export const mailService = {
 	getEmptyMail,
 	getDefaultFilter,
 	getLoggedUser,
+	getMailFromSearchParams,
 }
 
 //status: '', txt: '', isRead: null, isStarred: null, labels: []
@@ -111,6 +112,20 @@ function getEmptyMail(
 	removedAt = null
 ) {
 	return { id: '', subject, body, sentAt, from, to, isRead, isStarred, removedAt }
+}
+
+function getMailFromSearchParams(searchParams = { get: () => {} }) {
+	return {
+		id: '',
+		subject: searchParams.get('subject') || '',
+		body: searchParams.get('body') || '',
+		sentAt: '',
+		from: '',
+		to: '',
+		isRead: '',
+		isStarred: '',
+		removedAt: '',
+	}
 }
 
 function getDefaultFilter() {

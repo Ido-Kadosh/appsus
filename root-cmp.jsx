@@ -7,8 +7,6 @@ import { MailIndex } from './apps/mail/views/mail-index.jsx'
 import { NoteIndex } from './apps/note/views/note-index.jsx'
 import { MailCompose } from './apps/mail/cmps/mail-compose.jsx'
 import { UserMsg } from './cmps/user-msg.jsx'
-import { MailDetails } from './apps/mail/cmps/mail-details.jsx'
-
 import { BookIndex } from './apps/book/views/book-index.jsx'
 import { BookDetails } from './apps/book/views/book-details.jsx'
 import { BookEdit } from './apps/book/views/book-edit.jsx'

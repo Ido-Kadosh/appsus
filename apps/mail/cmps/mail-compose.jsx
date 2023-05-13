@@ -6,12 +6,11 @@ const { useState, Fragment } = React
 const { useNavigate, useOutletContext, useSearchParams } = ReactRouterDOM
 
 export function MailCompose() {
-	const [newMail, setNewMail] = useState(mailService.getEmptyMail())
+	const [searchParams, setSearchParams] = useSearchParams()
+	const [newMail, setNewMail] = useState(mailService.getMailFromSearchParams(searchParams))
 	const [isMinimized, setIsMinimized] = useState(false)
 	const [isFullScreen, setIsFullScreen] = useState(false)
-	const [searchParams, setSearchParams] = useSearchParams()
 	const navigate = useNavigate()
-	//could make only one state for minimize and fullscreen, but keeping it as such for readability.
 	const loadMails = useOutletContext()
 	function onAddMail(ev) {
 		ev.preventDefault()
@@ -34,6 +33,7 @@ export function MailCompose() {
 
 	function handleChange({ target: { value, name } }) {
 		setNewMail(prev => ({ ...prev, [name]: value }))
+		setSearchParams({ subject: newMail.subject, body: newMail.body })
 	}
 
 	function onFullScreen(newIsFullScreen, ev) {
