@@ -8,14 +8,16 @@ export function Home() {
 	return (
 		<main className="home">
 			<section className="img-container">
-				<h1>Amazing experience in appsus mail, efficient, useful and friendly</h1>
+				<h1>Experience our amazing friendly designed tools for free!</h1>
 				<button
 					//anchor href with id doesn't work with react, and we don't have hashlinks installed, so we use this hack.
-					onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+					// image ratio is 1.5 so we scroll 1.5 it's width, and then 75px for header size.
+					// in real scenarios, we will use React router anchor, which isn't installed here.
+					onClick={() => window.scrollTo({ top: document.body.scrollWidth / 1.5 + 75, behavior: 'smooth' })}
 					className="started-btn">
 					Get Started
 				</button>
-				<img src="https://media.istockphoto.com/id/1093508248/photo/modern-work-table-with-computer-laptop-and-cityscapes-view-from-window-business-concepts-ideas.jpg?s=612x612&w=0&k=20&c=vpMc1UR6KfgPe4GYcFG4x1FfPKLyYsoKqrAJolfBSZs="></img>
+				<img src="./assets/img/hero-img.jpg"></img>
 			</section>
 			<h2 className="our-features">Our Features </h2>
 			<section className="card-container">

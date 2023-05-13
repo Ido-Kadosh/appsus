@@ -11,13 +11,15 @@
 
 .home .img-container img {
 	width: 100%;
+	object-fit: fill;
+	object-position: top left;
 }
 
 .home .img-container h1 {
 	color: #7d7b7b;
-	font-size: clamp(1em, 4vw, 6em);
+	font-size: clamp(10px, 4vw, 6em);
 	position: absolute;
-	top: 10%;
+	bottom: 35%;
 	left: 45%;
 	padding-inline-end: 2em;
 	transform: translateX(50%, 50%);
@@ -25,8 +27,8 @@
 
 .home .img-container .started-btn {
 	position: absolute;
-	font-size: clamp(0.5em, 2vw, 4em);
-	top: 35%;
+	font-size: clamp(10px, 4vw, 6em);
+	bottom: 25%;
 	left: 45%;
 	transform: translateX(50%, 50%);
 	border-radius: 5px;
