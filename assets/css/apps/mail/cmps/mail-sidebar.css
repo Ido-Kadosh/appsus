@@ -11,6 +11,12 @@
 	padding-inline-end: 0.3em;
 }
 
+.mail-sidebar .unread-mail-count {
+	font-size: 0.8em;
+	padding-inline-start: 0.4em;
+	text-align: center;
+}
+
 .mail-filter {
 	display: flex;
 }

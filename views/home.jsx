@@ -20,7 +20,7 @@ export function Home() {
 			<h2 className="our-features">Our Features </h2>
 			<section className="card-container">
 				<div className="card appsus-mail flex column align-center">
-					<img className="card-img" src="../../assets/img/mail_logo.svg" alt=""></img>
+					<img className="card-img" src="./assets/img/mail_logo.svg" alt=""></img>
 					<h3>Appsus mail</h3>
 
 					<p>Send and receive mails with our encrypted mailing service</p>
@@ -29,14 +29,14 @@ export function Home() {
 				</div>
 
 				<div id="our-features" className="card appsus-keep flex column align-center">
-					<img className="card-img" src="../../assets/img/notes_logo.svg" alt=""></img>
+					<img className="card-img" src="./assets/img/notes_logo.svg" alt=""></img>
 					<h3>Appsus keep</h3>
 					<p>Quickly capture what's on your mind. Add notes and photos to Appsus Notes </p>
 					<Link to="/note">Learn more</Link>
 				</div>
 
 				<div className="card appsus-books flex column align-center">
-					<img className="card-img" src="../../assets/img/books_logo.png" alt=""></img>
+					<img className="card-img" src="./assets/img/books_logo.png" alt=""></img>
 
 					<h3>Appsus books</h3>
 					<p>Search the world's most comprehensive index of full-text books</p>
@@ -49,7 +49,7 @@ export function Home() {
 			<section className="about-us-container flex column">
 				<article className="stav flex">
 					<div className="stav-img-container">
-						<img src="../assets/img/stav-img.jpeg" alt="" />
+						<img src="./assets/img/stav-img.jpeg" alt="" />
 					</div>
 					<div className="about-details flex column">
 						<h4>Stav Tohami</h4>
@@ -67,7 +67,7 @@ export function Home() {
 
 				<article className="ido flex">
 					<div className="ido-img-container">
-						<img src="../assets/img/ido-img.jpeg" alt="" />
+						<img src="./assets/img/ido-img.jpeg" alt="" />
 					</div>
 					<div className="about-details flex column">
 						<h4>Ido Kadosh</h4>

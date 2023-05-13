@@ -1,20 +1,27 @@
 const { useState, useEffect } = React
-const { useParams } = ReactRouterDOM
+const { useParams, useNavigate } = ReactRouterDOM
 
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { utilService } from '../../../services/util.service.js'
 import { mailService } from '../services/mail.service.js'
 
 export function MailDetails() {
 	const [mail, setMail] = useState()
 	const { mailId } = useParams()
-	mailService.get(mailId).then(setMail)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		loadMail()
 	}, [mailId])
 
 	function loadMail() {
-		mailService.get(mailId).then(setMail).catch(console.log)
+		mailService
+			.get(mailId)
+			.then(setMail)
+			.catch(() => {
+				showErrorMsg('mail not found')
+				navigate('/mail')
+			})
 	}
 
 	if (!mail) return <span className="loader"></span>

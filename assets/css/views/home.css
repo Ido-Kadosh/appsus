@@ -104,8 +104,6 @@ article.ido {
 }
 
 .about-us-container {
-	/* margin-inline: auto; */
-	/* width: 80vw; */
 	gap: 3em;
 	margin-block-end: 2em;
 }
@@ -177,20 +175,6 @@ article.ido {
 	.ido h4 {
 		text-align: center;
 	}
-
-	/* .stav,
-     .ido {
-         width: 80vw;
-         border: 1px solid #d3cece;
-         gap: 2em;
-
-     }
-
-     .stav-img-container img,
-     .ido-img-container img {
-         height: 12em;
-         border-radius: 12px;
-     } */
 }
 
 /* MEDIUM */

@@ -75,7 +75,7 @@ function query(filterBy = {}, sortBy = { read: 1 }) {
 					mails = mails.filter(mail => mail.removedAt)
 					break
 				case 'draft':
-					console.log('no drafts ')
+					console.log('I thought I removed the drafts option. how did you get here? ')
 					break
 			}
 		}
@@ -272,22 +272,22 @@ Mahatma
 				'company@email.com'
 			)
 		)
-		// for (let i = 0; i < 40; i++) {
-		// 	mails.push(
-		// 		_createMail(
-		// 			utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),
-		// 			utilService.makeLorem(utilService.getRandomIntInclusive(25, 150)),
-		// 			utilService.getRandomIntInclusive(100000, Date.now()),
-		// 			`${utilService.makeLorem(1)}@appsus.com`,
-		// 			'user@appsus.com',
-		// 			utilService.getRandomIntInclusive(0, 1) ? true : false,
-		// 			utilService.getRandomIntInclusive(0, 1) ? true : false,
-		// 			utilService.getRandomIntInclusive(0, 5)
-		// 				? null
-		// 				: utilService.getRandomIntInclusive(100000, Date.now())
-		// 		)
-		// 	)
-		// }
+		for (let i = 0; i < 15; i++) {
+			mails.push(
+				_createMail(
+					utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),
+					utilService.makeLorem(utilService.getRandomIntInclusive(25, 150)),
+					utilService.getRandomIntInclusive(100000, Date.now()),
+					`${utilService.makeLorem(1)}@appsus.com`,
+					'user@appsus.com',
+					utilService.getRandomIntInclusive(0, 1) ? true : false,
+					utilService.getRandomIntInclusive(0, 1) ? true : false,
+					utilService.getRandomIntInclusive(0, 5)
+						? null
+						: utilService.getRandomIntInclusive(100000, Date.now())
+				)
+			)
+		}
 
 		utilService.saveToStorage(MAIL_KEY, mails)
 	}
