@@ -14,6 +14,7 @@ export const utilService = {
 	debouncePromise,
 	validateMail,
 	formatMailDate,
+	getSymbolCurrency
 }
 
 function makeId(length = 6) {
@@ -162,4 +163,18 @@ function debouncePromise(func, timeout = 500) {
 
 function validateMail(mail) {
 	return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
+}
+
+function getSymbolCurrency(currency) {
+    switch (currency) {
+        case 'USD':
+            return String.fromCharCode(0x0024)
+            break
+        case 'EUR':
+            return String.fromCharCode(0x20AC)
+            break
+        case 'ILS':
+            return String.fromCharCode(0x20AA)
+            break
+    }
 }

@@ -1,0 +1,15 @@
+.add-review {
+    min-height: 60vh;
+    margin-block-start: 1em;
+    background-color: var(--clr2);
+    padding: 12px;
+}
+
+.add-review-form > * {
+    width: 300px;
+    margin-block-end: 1em ;
+}
+
+.add-review-form .description {
+    height: 100px;
+}
