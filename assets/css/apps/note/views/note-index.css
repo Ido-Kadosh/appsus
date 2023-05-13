@@ -1,1 +1,9 @@
  /* note index */
+
+ @media (max-width: 640px) {
+
+    .note-index > * {
+        margin-inline: auto;
+    }
+
+ }

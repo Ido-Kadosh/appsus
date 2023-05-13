@@ -9,7 +9,6 @@ export function NoteList({ notes, onRemoveNote, duplicateNote, togglePinned }) {
     const [unPinnedNotes, setUnPinnedNotes] = useState([])
 
     useEffect(() => {
-        console.log(notes)
         filterPinnedNotes()
     }, [notes])
 

@@ -3,6 +3,15 @@
 	margin-block-start: 1em;
 	background-color: var(--mail-bg-clr-2);
 	padding: 12px;
+	width: 70vw;
+	text-align: center;
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.add-review-form {
+	align-items: center;
 }
 
 .add-review-form > * {
@@ -12,4 +21,8 @@
 
 .add-review-form .description {
 	height: 100px;
+}
+
+.add-review .exit-btn {
+	align-self: flex-start;
 }

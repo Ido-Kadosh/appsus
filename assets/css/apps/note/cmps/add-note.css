@@ -80,3 +80,9 @@
     right: 10px;
     top: 10px;
 }
+
+@media (max-width: 640px) {
+	.add-note {
+		width: 400px;
+	}
+}

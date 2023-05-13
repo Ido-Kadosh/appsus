@@ -52,11 +52,6 @@ export function ToolBarNote({ note, onRemoveNote, duplicateNote, onSetNoteStyle 
                 content_copy
             </span>
             <span className="material-symbols-outlined"
-                title="Add label"
-            >
-                label
-            </span>
-            <span className="material-symbols-outlined"
                 onClick={onExportMail}
                 title="Export as email">
                 attach_email

@@ -3,9 +3,17 @@
 	margin-block-start: 1em;
 	background-color: var(--mail-bg-clr-2);
 	padding: 12px;
+	margin-inline: auto;
+	width: 70vw;
+	text-align: center;
+}
+
+.book-edit-form {
+	align-items: center;
 }
 
 .book-edit-form > * {
+	text-align: left;
 	width: 300px;
 	margin-block-end: 1em;
 }

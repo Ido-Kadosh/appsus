@@ -69,7 +69,7 @@ function getEmptyNote(
 	}
 }
 
-function getEmptyNoteFromMail(searchParams = { get: () => {} }) {
+function getEmptyNoteFromMail(searchParams = { get: () => { } }) {
 	return {
 		id: '',
 		createdAt: Date.now(),
@@ -85,7 +85,7 @@ function getEmptyNoteFromMail(searchParams = { get: () => {} }) {
 	}
 }
 
-function getDefaultFilter(searchParams = { get: () => {} }) {
+function getDefaultFilter(searchParams = { get: () => { } }) {
 	return {
 		txt: searchParams.get('txt') || '',
 	}
@@ -131,7 +131,8 @@ function _createNotes() {
 				},
 				info: {
 					title: 'Tomorrow!',
-					txt: 'Champions League semi-finals',
+					txt: `Champions League semi-finals - 
+                    Real Madrid Vs Manchester City`,
 				},
 			},
 			{
@@ -216,5 +217,5 @@ function removeTodo(noteId, todoId) {
 }
 
 function getEmptyTodo() {
-	return { id: '', txt: '', doneAt: null }
+	return { id: utilService.makeId(), txt: '', doneAt: null }
 }

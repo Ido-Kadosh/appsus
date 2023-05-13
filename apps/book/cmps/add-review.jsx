@@ -38,7 +38,7 @@ export function AddReview() {
 
     return (
         <section className="add-review">
-            <button onClick={onBack}>X</button>
+            <button className="exit-btn" onClick={onBack}>X</button>
             <form onSubmit={onSaveReview} className="add-review-form flex column justify-center">
 
                 <label htmlFor="fullname">Full Name:</label>

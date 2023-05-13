@@ -13,6 +13,7 @@
 
 /* Views */
 @import './views/home.css';
+@import './apps/note/views/note-index.css';
 
 /* @import './apps/note/views/note-index.css'; */
 
