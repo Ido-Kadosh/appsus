@@ -272,7 +272,7 @@ Mahatma
 				'company@email.com'
 			)
 		)
-		for (let i = 0; i < 15; i++) {
+		for (let i = 0; i < 30; i++) {
 			mails.push(
 				_createMail(
 					utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),

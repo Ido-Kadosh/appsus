@@ -13,7 +13,8 @@
 }
 
 .app-header-logo {
-	display: absolute;
+	width: clamp(128px, 10vw, 256px);
+	/* width: 10vw; */
 	padding-inline-start: 20px;
 }
 

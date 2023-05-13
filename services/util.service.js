@@ -14,7 +14,7 @@ export const utilService = {
 	debouncePromise,
 	validateMail,
 	formatMailDate,
-	getSymbolCurrency
+	getSymbolCurrency,
 }
 
 function makeId(length = 6) {
@@ -38,7 +38,9 @@ function makeLorem(size = 100) {
 		'tuned',
 		'to',
 		'channel',
-		'All',
+		'all',
+		'baby',
+		'thing',
 		'happened',
 		'less',
 		'I',
@@ -166,15 +168,15 @@ function validateMail(mail) {
 }
 
 function getSymbolCurrency(currency) {
-    switch (currency) {
-        case 'USD':
-            return String.fromCharCode(0x0024)
-            break
-        case 'EUR':
-            return String.fromCharCode(0x20AC)
-            break
-        case 'ILS':
-            return String.fromCharCode(0x20AA)
-            break
-    }
+	switch (currency) {
+		case 'USD':
+			return String.fromCharCode(0x0024)
+			break
+		case 'EUR':
+			return String.fromCharCode(0x20ac)
+			break
+		case 'ILS':
+			return String.fromCharCode(0x20aa)
+			break
+	}
 }

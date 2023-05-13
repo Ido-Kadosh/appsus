@@ -27,7 +27,7 @@ export function AppHeader() {
 	return (
 		<header className="app-header">
 			<Link to="/">
-				<img className="app-header-logo" src="assets\img\favicon.svg" />
+				<img className="app-header-logo" src="assets\img\header-logo.png" />
 			</Link>
 			{['note', 'mail'].includes(currentPath) && <HeaderSearch location={currentPath} />}
 			<span title="Appsus apps" onClick={toggleNavPreview} className="app-header-hamburger ">

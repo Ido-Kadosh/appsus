@@ -9,7 +9,7 @@ import { bookService } from '../services/book.service.js'
 export function BookIndex() {
 	const [books, setBooks] = useState([])
 	const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
-
+	document.title = 'Appsus Books'
 	useEffect(() => {
 		loadBooks()
 	}, [filterBy])

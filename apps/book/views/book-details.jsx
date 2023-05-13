@@ -12,6 +12,7 @@ export function BookDetails() {
 	const [book, setBook] = useState(null)
 	const [nextBookId, setNextBookId] = useState(null)
 	const [prevBookId, setPrevBookId] = useState(null)
+	document.title = 'Appsus Books'
 
 	const { bookId } = useParams()
 	const navigate = useNavigate()

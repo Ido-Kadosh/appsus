@@ -56,14 +56,16 @@ export function Home() {
 					<div className="about-details flex column">
 						<h4>Stav Tohami</h4>
 						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, ad molestias. Voluptates
-							nemo explicabo, dolorem quisquam sunt eos tempore rem.
+							23 years old from Hadera, Israel. Passionate about coding and always up for a challenge.
+							Studying web development in Coding-Academy.
 						</p>
 					</div>
 					<div className="about-tool-bar flex">
-						<i className="icon fa-brands fa-instagram"></i>
+						<i className="icon fa-brands fa-linkedin-in"></i>
 						<i className="icon fa-brands fa-facebook"></i>
-						<i className="icon fa-brands fa-github"></i>
+						<a target="_blank" href="https://github.com/stavTo">
+							<i className="icon fa-brands fa-github"></i>
+						</a>
 					</div>
 				</article>
 
@@ -74,16 +76,16 @@ export function Home() {
 					<div className="about-details flex column">
 						<h4>Ido Kadosh</h4>
 						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, ad molestias. Voluptates
-							nemo explicabo, dolorem quisquam sunt eos tempore rem.
+							21 years old from Kadima, Israel. Always trying to learn new things! Studying web
+							development in Coding-Academy.
 						</p>
 					</div>
 					<div className="about-tool-bar flex">
-						<a href="https://www.linkedin.com/in/ido-kadosh-717729252/">
+						<a target="_blank" href="https://www.linkedin.com/in/ido-kadosh-717729252/">
 							<i className="icon fa-brands fa-linkedin-in"></i>
 						</a>
 						<i className="icon fa-brands fa-facebook"></i>
-						<a href="https://github.com/Ido-Kadosh">
+						<a target="_blank" href="https://github.com/Ido-Kadosh">
 							<i className="icon fa-brands fa-github"></i>
 						</a>
 					</div>

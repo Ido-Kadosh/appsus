@@ -17,9 +17,9 @@
 
 .home .img-container h1 {
 	color: #7d7b7b;
-	font-size: clamp(10px, 4vw, 6em);
+	font-size: clamp(10px, 3vw, 6em);
 	position: absolute;
-	bottom: 35%;
+	bottom: 45%;
 	left: 45%;
 	padding-inline-end: 2em;
 	transform: translateX(50%, 50%);
@@ -27,8 +27,8 @@
 
 .home .img-container .started-btn {
 	position: absolute;
-	font-size: clamp(10px, 4vw, 6em);
-	bottom: 25%;
+	font-size: clamp(10px, 3vw, 6em);
+	bottom: 35%;
 	left: 45%;
 	transform: translateX(50%, 50%);
 	border-radius: 5px;

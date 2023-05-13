@@ -8,6 +8,7 @@ export function BookEdit() {
 	const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
 	const navigate = useNavigate()
 	const params = useParams()
+	document.title = 'Appsus Books'
 
 	useEffect(() => {
 		if (params.bookId) loadBook()
