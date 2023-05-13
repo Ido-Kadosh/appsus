@@ -4,16 +4,19 @@ const { useState, useRef, useEffect } = React
 import { noteService } from "../services/note.service.js";
 import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { ToolBarNote } from "./tool-bar-note.jsx";
+import { utilService } from '../../../services/util.service.js'
+
 
 export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned }) {
 
-    const { id, info: { txt, title, imgUrl, videoUrl, todos }, type } = note
+    const { id, info: { txt, title, imgUrl, videoUrl }, type, createdAt } = note
 
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const [noteStyle, setNoteStyle] = useState(note.style)
 
     const elInputTitle = useRef(title)
     const elInputTxt = useRef(txt)
+
 
     useEffect(() => {
     }, [])
@@ -24,7 +27,7 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
                 note.style = newStyle
                 return note
             }).then(noteService.save)
-        setNoteStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+        setNoteStyle(() => newStyle)
     }
 
     function onTogglePinned(ev) {
@@ -38,6 +41,7 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
         if (type === 'NoteTxt') {
             note.info.txt = elInputTxt.current.innerText || ''
         }
+        note.createdAt = Date.now()
         noteService.save(note)
             .then(() => {
                 showSuccessMsg('The changes are saved')
@@ -77,7 +81,13 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
                     <iframe src={videoUrl}></iframe>
                 }
             </div>
-            <ToolBarNote onSetNoteStyle={onSetNoteStyle} note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
+
+            <div className="conatiner-btn-time">
+                <ToolBarNote onSetNoteStyle={onSetNoteStyle} note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
+                <div className="createdAt-container" >
+                    {`Edited ${utilService.formatMailDate(createdAt)}`}
+                </div>
+            </div>
         </article>
     )
 }
