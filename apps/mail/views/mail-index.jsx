@@ -1,8 +1,6 @@
 const { useEffect, useState, Fragment } = React
-const { Outlet, Link, useSearchParams, useParams, useNavigate } = ReactRouterDOM
-const Router = ReactRouterDOM.HashRouter
+const { Outlet, useSearchParams, useParams } = ReactRouterDOM
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
-import { utilService } from '../../../services/util.service.js'
 import { MailList } from '../cmps/mail-list.jsx'
 import { mailService } from '../services/mail.service.js'
 import { MailSidebar } from '../cmps/mail-sidebar.jsx'

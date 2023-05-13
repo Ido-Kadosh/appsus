@@ -3,7 +3,6 @@ const { useState, useRef, useEffect } = React
 import { noteService } from '../services/note.service.js'
 import { showSuccessMsg } from '../../../services/event-bus.service.js'
 import { ToolBarNote } from './tool-bar-note.jsx'
-import { utilService } from '../../../services/util.service.js'
 
 export function NotePreview({ onSetNoteStyle, note, onRemoveNote, duplicateNote, togglePinned }) {
 	const {
