@@ -1,16 +1,13 @@
 
-const { useState, useRef, useEffect } = React
+const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
-import { showSuccessMsg , showErrorMsg } from "../../../services/event-bus.service.js"
-import { ToolBarNote } from "./tool-bar-note.jsx"
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { ColorBgcNote } from "./color-bgc-note.jsx";
 import { NoteTxt } from "./note-txt.jsx";
 import { NoteImg } from "./note-img.jsx";
 import { NoteVideo } from "./note-video.jsx";
-import { NoteTodos } from "./note-todos.jsx";
-import { utilService } from "../../../services/util.service.js";
 
 export function AddNote({ saveNote }) {
 
@@ -20,15 +17,12 @@ export function AddNote({ saveNote }) {
     const [newNote, setNewNote] = useState(noteService.getEmptyNoteFromMail(searchParamsFromMail))
     const [noteType, setNoteType] = useState('NoteTxt')
 
-
     useEffect(() => {
         document.addEventListener('click', () => setIsPaletteShown(false))
         return (
             () => {
                 document.removeEventListener('click', () => setIsPaletteShown(false))
             })
-
-
     }, [])
 
     function togglePalette(ev) {
@@ -40,29 +34,18 @@ export function AddNote({ saveNote }) {
         setNewNote(prevNote => ({ ...prevNote, style: { ...newStyle } }))
     }
 
-    function handleChange({ target }, todoIdx) {
+    function handleChange({ target }) {
         const field = target.name
         const value = target.value
 
         if (field === 'title') {
             setNewNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, 'title': value } }))
-            searchParamsFromMail.set('title' , value)
+            searchParamsFromMail.set('title', value)
             setSearchParamsFromMail(searchParamsFromMail)
-        } else if (field === 'todos') {
-            setNewNote(prevNote => {
-                // const newTodo = { id: utilService.makeId(), txt: value, doneAt: null }
-                // const todos = [...prevNote.info.todos]
-                prevNote.todos[todoIdx] = noteService.getEmptyTodo()
-                prevNote.todos[todoIdx].id = utilService.makeId()
-                prevNote.todos[todoIdx].txt = value
-                const newTodo = todo[todoIdx]
-                return { ...prevNote, info: { title: prevNote.info.title, todos: [...todos, newTodo] } }
-            })
         } else if (field === 'txt') {
             setNewNote(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
-            searchParamsFromMail.set('txtFromMail' , value)
+            searchParamsFromMail.set('txtFromMail', value)
             setSearchParamsFromMail(searchParamsFromMail)
-
         } else {
             setNewNote(prevNote => ({ ...prevNote, info: { title: prevNote.info.title, [field]: value } }))
         }
@@ -72,7 +55,7 @@ export function AddNote({ saveNote }) {
         if (!newNote.info.txt && !newNote.info.title) {
             showErrorMsg('Title or text required')
             return
-        } 
+        }
         ev.preventDefault()
         saveNote(newNote)
         setNewNote(noteService.getEmptyNote())
@@ -95,7 +78,7 @@ export function AddNote({ saveNote }) {
     const { info: { title, txt } } = newNote
     return (
         <section className='add-note' style={newNote.style}>
-
+           
             <span onClick={togglePinned} className={`${isPinnedClass} material-symbols-outlined pin-icon `} >
                 push_pin
             </span>
@@ -105,7 +88,8 @@ export function AddNote({ saveNote }) {
                     type="text" name="title" id="title" placeholder="Title" />
 
                 <DynamicNoteType noteType={noteType} handleChange={handleChange} txt={txt}
-                    imgUrl={newNote.info.imgUrl} videoUrl={newNote.info.videoUrl} todos={newNote.info.todos} />
+                    imgUrl={newNote.info.imgUrl} videoUrl={newNote.info.videoUrl} todos={newNote.info.todos} newNote={newNote}
+                    setNewNote={setNewNote} />
             </section>
 
             <div className="btn-container flex space-between">
@@ -135,24 +119,14 @@ export function AddNote({ saveNote }) {
                         onClick={setTypeByName}>
                         movie
                     </span>
-                    <span className="material-symbols-outlined">
-                        label
-                    </span>
-                    <span className="material-symbols-outlined"
-                        name="NoteTodos"
-                        title="Add todos"
-                        onClick={setTypeByName}>
-                        checklist
-                    </span>
                 </div>
                 <button onClick={onSaveNote} className="add-btn">Add</button>
             </div>
         </section>
     )
-
 }
 
-function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl, todos }) {
+function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl, todos, newNote, setNewNote }) {
     switch (noteType) {
         case 'NoteTxt':
             return <NoteTxt handleChange={handleChange} txt={txt} />
@@ -160,8 +134,6 @@ function DynamicNoteType({ noteType, handleChange, txt, imgUrl, videoUrl, todos 
             return <NoteImg handleChange={handleChange} imgUrl={imgUrl} />
         case 'NoteVideo':
             return <NoteVideo handleChange={handleChange} videoUrl={videoUrl} />
-        case 'NoteTodos':
-            return <NoteTodos handleChange={handleChange} todos={todos} />
     }
 }
 

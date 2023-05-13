@@ -1,7 +1,5 @@
 
-
 export function NoteTxt({ handleChange, txt }) {
-
     return (
         <section className="note-txt flex column space-between">
             <input onChange={handleChange} value={txt}

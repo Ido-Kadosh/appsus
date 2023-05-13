@@ -1,7 +1,6 @@
 
 const { useState, useRef, useEffect } = React
 
-import { utilService } from "../../../services/util.service.js";
 import { noteService } from "../services/note.service.js";
 import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { ToolBarNote } from "./tool-bar-note.jsx";
@@ -13,13 +12,11 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const [noteStyle, setNoteStyle] = useState(note.style)
 
-
     const elInputTitle = useRef(title)
     const elInputTxt = useRef(txt)
 
     useEffect(() => {
     }, [])
-
 
     function onSetNoteStyle(newStyle) {
         noteService.get(id)
@@ -30,13 +27,11 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
         setNoteStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
     }
 
-
     function onTogglePinned(ev) {
         ev.stopPropagation()
         togglePinned(note)
         setIsPinned(prevPinned => !prevPinned)
     }
-
 
     function onSaveChanges() {
         note.info.title = elInputTitle.current.innerText
@@ -49,11 +44,9 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
             })
     }
 
-
     const isPinnedClass = isPinned ? 'pinned' : ''
+
     return (
-
-
         <article className="note-preview" style={noteStyle}>
             <span onClick={onTogglePinned}
                 title="Pin note"
@@ -82,17 +75,6 @@ export function NotePreview({ note, onRemoveNote, duplicateNote, togglePinned })
                 }
                 {type === 'NoteVideo' &&
                     <iframe src={videoUrl}></iframe>
-                }
-                {type === 'NoteTodos' &&
-                    <ul className="clean-list">
-                        {todos && todos.map(todo =>
-                            <li key={todo.id}>
-                                <input type="checkbox" />
-                                <span> {todo.txt}</span>
-                                <button> X </button>
-
-                            </li>)}
-                    </ul>
                 }
             </div>
             <ToolBarNote onSetNoteStyle={onSetNoteStyle} note={note} onRemoveNote={onRemoveNote} duplicateNote={duplicateNote} />
