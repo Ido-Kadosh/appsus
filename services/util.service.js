@@ -29,36 +29,33 @@ function makeId(length = 6) {
 
 function makeLorem(size = 100) {
 	var words = [
-		'The sky',
+		'sky',
 		'above',
-		'the port',
+		'port',
 		'was',
-		'the color of television',
+		'television',
 		'tuned',
 		'to',
-		'a dead channel',
-		'.',
+		'channel',
 		'All',
-		'this happened',
-		'more or less',
-		'.',
+		'happened',
+		'less',
 		'I',
 		'had',
-		'the story',
-		'bit by bit',
-		'from various people',
+		'story',
+		'bit',
+		'people',
 		'and',
-		'as generally',
+		'generally',
 		'happens',
-		'in such cases',
-		'each time',
+		'cases',
+		'time',
 		'it',
 		'was',
-		'a different story',
-		'.',
+		'story',
 		'It',
 		'was',
-		'a pleasure',
+		'pleasure',
 		'to',
 		'burn',
 	]
@@ -67,7 +64,7 @@ function makeLorem(size = 100) {
 		size--
 		txt += words[Math.floor(Math.random() * words.length)] + ' '
 	}
-	return txt
+	return txt.slice(0, -1)
 }
 
 function getRandomIntInclusive(min, max) {

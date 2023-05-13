@@ -3,13 +3,14 @@ import { utilService } from '../../../services/util.service.js'
 import { mailService } from '../services/mail.service.js'
 
 const { useState, Fragment } = React
-const { useNavigate, useOutletContext } = ReactRouterDOM
+const { useNavigate, useOutletContext, useSearchParams } = ReactRouterDOM
 
 export function MailCompose() {
-	const navigate = useNavigate()
 	const [newMail, setNewMail] = useState(mailService.getEmptyMail())
 	const [isMinimized, setIsMinimized] = useState(false)
 	const [isFullScreen, setIsFullScreen] = useState(false)
+	const [searchParams, setSearchParams] = useSearchParams()
+	const navigate = useNavigate()
 	//could make only one state for minimize and fullscreen, but keeping it as such for readability.
 	const loadMails = useOutletContext()
 	function onAddMail(ev) {

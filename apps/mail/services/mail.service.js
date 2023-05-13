@@ -25,17 +25,29 @@ export const mailService = {
 
 //status: '', txt: '', isRead: null, isStarred: null, labels: []
 
-function query(filterBy = {}, sortBy = { date: 1 }) {
+function query(filterBy = {}, sortBy = { read: 1 }) {
 	return storageService.query(MAIL_KEY).then(mails => {
 		// sort
 		if (sortBy.date) {
-			mails.sort((mail1, mail2) => (mail2.sentAt - mail1.sentAt) * sortBy.date)
+			mails.sort((mail1, mail2) => {
+				if (!(mail2.sentAt - mail1.sentAt)) return mail1.isRead - mail2.isRead
+				return (mail2.sentAt - mail1.sentAt) * sortBy.date
+			})
 		} else if (sortBy.starred) {
-			mails.sort((mail1, mail2) => (mail2.isStarred - mail1.isStarred) * sortBy.starred)
+			mails.sort((mail1, mail2) => {
+				if (!(mail2.isStarred - mail1.isStarred)) return mail1.isRead - mail2.isRead
+				return (mail2.isStarred - mail1.isStarred) * sortBy.starred
+			})
 		} else if (sortBy.read) {
-			mails.sort((mail1, mail2) => (mail1.isRead - mail2.isRead) * sortBy.read)
+			mails.sort((mail1, mail2) => {
+				if (!(mail1.isRead - mail2.isRead)) return mail2.sentAt - mail1.sentAt
+				return (mail1.isRead - mail2.isRead) * sortBy.read
+			})
 		} else if (sortBy.subject) {
-			mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject) * sortBy.subject)
+			mails.sort((mail1, mail2) => {
+				if (!mail1.subject.localeCompare(mail2.subject)) return mail1.isRead - mail2.isRead
+				return mail1.subject.localeCompare(mail2.subject) * sortBy.subject
+			})
 		}
 
 		//filter
@@ -137,7 +149,7 @@ Please call me at your earliest convenience at 18-467-4975. Time is of the essen
 Yours truly,
 				
 				Prince Alyusi Islassis`,
-				1551133930594,
+				Date.now() - 99999,
 				'Alusi@Kingdom.com',
 				'user@appsus.com',
 				false,
@@ -162,7 +174,7 @@ Yours truly,
 				⣿⣿⣦⣀⠸⣿⣿⡟⠃⠸⣿⣿⣿⡇⠘⣛⠂⠾⠿⢟⣋⣵⣿⣿⣿
 				⣿⣿⣿⣿⣧⡘⠿⣿⠰⣶⣍⣛⣛⣃⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 				⣿⣿⣿⣿⣿⣿⣶⣤⣀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿`,
-				1551133930594,
+				Date.now() - 21391293,
 				'momo@momo.com',
 				'user@appsus.com',
 				true,
@@ -221,60 +233,19 @@ Mahatma`,
 				false
 			)
 		)
-		mails.push(
-			_createMail(
-				'Example',
-				'Example mail, to be changed later.',
-				1683893674944,
-				'user@appsus.com',
-				'Alusi@Kingdom.com',
-				true,
-				false
-			)
-		)
-		mails.push(
-			_createMail(
-				'Example',
-				'Example mail, to be changed later.',
-				1673893674944,
-				'anotheruser@appsus.com',
-				'user@appsus.com',
-				true,
-				false
-			)
-		)
-		mails.push(
-			_createMail(
-				'Example',
-				'Example mail, to be changed later.',
-				1683853674944,
-				'anotheruser@appsus.com',
-				'user@appsus.com',
-				true,
-				false
-			)
-		)
-		mails.push(
-			_createMail(
-				'Example',
-				'Example mail, to be changed later.',
-				1683813674944,
-				'anotheruser@appsus.com',
-				'user@appsus.com',
-				true,
-				false
-			)
-		)
-		for (let i = 0; i < 25; i++) {
+		for (let i = 0; i < 40; i++) {
 			mails.push(
 				_createMail(
-					'Example',
-					'Example mail, to be changed later.',
-					983893674944,
-					'anotheruser@appsus.com',
+					utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),
+					utilService.makeLorem(utilService.getRandomIntInclusive(25, 150)),
+					utilService.getRandomIntInclusive(100000, Date.now()),
+					`${utilService.makeLorem(1)}@appsus.com`,
 					'user@appsus.com',
-					true,
-					false
+					utilService.getRandomIntInclusive(0, 1) ? true : false,
+					utilService.getRandomIntInclusive(0, 1) ? true : false,
+					utilService.getRandomIntInclusive(0, 5)
+						? null
+						: utilService.getRandomIntInclusive(100000, Date.now())
 				)
 			)
 		}

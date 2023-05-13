@@ -34,16 +34,16 @@ export function AppHeader() {
 				<span className="material-symbols-outlined">apps</span>
 				<nav className={`${visibleClass} header-apps`}>
 					<NavLink className="home" title="Home" to="/">
-						<img src="/assets/img/home_logo.svg" alt="home" />
+						<img src="../assets/img/home_logo.svg" alt="home" />
 					</NavLink>
 					<NavLink className="mail" title="Mail" to="/mail">
-						<img src="/assets/img/mail_Logo.svg" alt="mail" />
+						<img src="../assets/img/mail_Logo.svg" alt="mail" />
 					</NavLink>
 					<NavLink className="note" title="Notes" to="/note">
-						<img src="/assets/img/notes_logo.svg" alt="notes" />
+						<img src="../assets/img/notes_logo.svg" alt="notes" />
 					</NavLink>
 					<NavLink className="book" title="Books" to="/book">
-						<img src="/assets/img/books_logo.png" alt="books" />
+						<img src="../assets/img/books_logo.png" alt="books" />
 					</NavLink>
 				</nav>
 			</span>

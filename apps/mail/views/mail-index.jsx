@@ -94,7 +94,7 @@ export function MailIndex() {
 	return (
 		<Fragment>
 			<main className="mail-index">
-				<MailSidebar active={params.filter} filter={filter} />
+				<MailSidebar active={params.filter} />
 				{!params.mailId && (
 					<MailList
 						sort={sort}
