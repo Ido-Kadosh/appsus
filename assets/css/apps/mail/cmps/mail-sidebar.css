@@ -8,7 +8,7 @@
 }
 
 .mail-sidebar:hover {
-	padding-inline-end: 1em;
+	padding-inline-end: 0.3em;
 }
 
 .mail-filter {
@@ -27,6 +27,10 @@
 
 .mail-filter .material-symbols-outlined {
 	padding-inline: 1rem;
+}
+
+.mail-sidebar:hover .mail-filter > :last-of-type {
+	padding-inline-end: 1em;
 }
 
 .mail-filter .active > .material-symbols-outlined {
@@ -59,6 +63,10 @@
 .mail-sidebar .compose-icon-container:hover {
 	box-shadow: var(--mail-box-shadow-1);
 	scale: 1.1;
+}
+
+.mail-sidebar:hover .compose-icon-container {
+	margin-inline-start: 1.5em;
 }
 
 .compose-icon-container .compose-text {

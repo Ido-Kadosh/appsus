@@ -24,8 +24,6 @@ export const mailService = {
 	getMailFromSearchParams,
 }
 
-//status: '', txt: '', isRead: null, isStarred: null, labels: []
-
 function query(filterBy = {}, sortBy = { read: 1 }) {
 	return storageService.query(MAIL_KEY).then(mails => {
 		// sort
@@ -248,34 +246,49 @@ Mahatma`,
 				false
 			)
 		)
-		for (let i = 0; i < 40; i++) {
-			mails.push(
-				_createMail(
-					utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),
-					utilService.makeLorem(utilService.getRandomIntInclusive(25, 150)),
-					utilService.getRandomIntInclusive(100000, Date.now()),
-					`${utilService.makeLorem(1)}@appsus.com`,
-					'user@appsus.com',
-					utilService.getRandomIntInclusive(0, 1) ? true : false,
-					utilService.getRandomIntInclusive(0, 1) ? true : false,
-					utilService.getRandomIntInclusive(0, 5)
-						? null
-						: utilService.getRandomIntInclusive(100000, Date.now())
-				)
+		mails.push(
+			_createMail(
+				'Job Application for Marketing Manager Position',
+				`Dear Company,
+
+I hope this email finds you well. My name is Mahatma, and I am writing to express my strong interest in the Marketing Manager position at Company, as advertised on [Job Board/Company Website].
+		
+With a solid background in marketing strategy and a proven track record of driving successful campaigns, I am confident in my ability to contribute to the growth and success of Company. I have 5 years of experience in marketing roles, including my most recent position as Marketing Specialist at my previous company. During my time there, I led cross-functional teams, developed and implemented comprehensive marketing plans, and successfully increased brand awareness and customer engagement.
+		
+In addition to my experience, I hold a Bachelor's degree in Marketing from University of my state and have a deep understanding of digital marketing techniques, social media management, and market research. I am also proficient in various marketing tools, including Google Analytics, SEO optimization, and CRM software.
+		
+I am particularly drawn to Company due to its innovative approach to marketing and its commitment to delivering exceptional results. I am excited about the opportunity to leverage my skills and contribute to your marketing initiatives.
+		
+Please find attached my resume for your review. I would greatly appreciate the opportunity to discuss how my qualifications align with the requirements of the Marketing Manager position. I am available for an interview at your convenience.
+		
+Thank you for considering my application. I look forward to the possibility of joining the talented team at Company.
+		
+Best regards,
+		
+Mahatma
+123-456-7890`,
+				Date.now() - 1232131,
+				'user@appsus.com',
+				'company@email.com'
 			)
-		}
+		)
+		// for (let i = 0; i < 40; i++) {
+		// 	mails.push(
+		// 		_createMail(
+		// 			utilService.makeLorem(utilService.getRandomIntInclusive(3, 6)),
+		// 			utilService.makeLorem(utilService.getRandomIntInclusive(25, 150)),
+		// 			utilService.getRandomIntInclusive(100000, Date.now()),
+		// 			`${utilService.makeLorem(1)}@appsus.com`,
+		// 			'user@appsus.com',
+		// 			utilService.getRandomIntInclusive(0, 1) ? true : false,
+		// 			utilService.getRandomIntInclusive(0, 1) ? true : false,
+		// 			utilService.getRandomIntInclusive(0, 5)
+		// 				? null
+		// 				: utilService.getRandomIntInclusive(100000, Date.now())
+		// 		)
+		// 	)
+		// }
 
 		utilService.saveToStorage(MAIL_KEY, mails)
 	}
 }
-
-// const mail = {
-// 	id: utilService.makeId(),
-// 	subject: 'Miss you!',
-// 	body: 'Would love to catch up sometimes, '
-// 	sentAt: 1551133930594,
-// 	from: 'momo@momo.com',
-// 	to: 'user@appsus.com',
-// 	isRead: false,
-// 	removedAt: null,
-// }

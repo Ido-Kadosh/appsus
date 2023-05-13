@@ -58,6 +58,7 @@ export function MailPreview({ mail, onSetMailReadStatus, onRemoveMail, restoreMa
 	function onSendToNotes(ev) {
 		ev.stopPropagation()
 		const mailToSend = { title: subject, txt: body }
+		console.log('mailToSend:', mailToSend)
 		navigate({
 			pathname: '/note',
 			search: `?${createSearchParams(mailToSend)}`,

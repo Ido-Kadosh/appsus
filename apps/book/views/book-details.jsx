@@ -107,17 +107,14 @@ export function BookDetails() {
 			<h3>
 				Number of pages: {pageCount} | {txtPageCount()}{' '}
 			</h3>
-			<button>
-				<Link to={`/book/${id}/review`}>Add Review</Link>
-			</button>
+
+			<Link to={`/book/${id}/review`}>Add Review</Link>
+
 			{!!book.reviews.length && <ReviewList reviews={reviews} onRemoveReview={onRemoveReview} bookId={id} />}
 			<section>
-				<button>
-					<Link to={`/book/${nextBookId}`}>Next book</Link>
-				</button>
-				<button>
-					<Link to={`/book/${prevBookId}`}>Prev book</Link>
-				</button>
+				<Link to={`/book/${nextBookId}`}>Next book</Link>
+
+				<Link to={`/book/${prevBookId}`}>Prev book</Link>
 			</section>
 			<button onClick={onBack}>Back</button>
 		</section>

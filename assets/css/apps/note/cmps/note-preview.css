@@ -1,26 +1,25 @@
 .note-preview {
-    border: 1px #d3cece solid;
-    border-radius: 5px;
-    padding: 10px;
-    position: relative;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	padding: 10px;
+	position: relative;
 }
 
 .note-preview .content-editable-container iframe {
-    width: 100%;
-    margin-inline: auto;
-    margin-block: 0.5em;
-
+	width: 100%;
+	margin-inline: auto;
+	margin-block: 0.5em;
 }
 
-[contentEditable="true"]:focus {
-    outline: none;
+[contentEditable='true']:focus {
+	outline: none;
 }
 
 .note-preview h1 {
-    font-size: 1.4em;
-    padding-inline-end: 20px;
+	font-size: 1.4em;
+	padding-inline-end: 20px;
 }
 
 .note-preview img {
-    margin-block: 0.5em;
+	margin-block: 0.5em;
 }
